@@ -1,0 +1,72 @@
+﻿@model List<Core.DTO.File.FileDTO>
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="index.html">Trang chủ</a></li>
+                        <li>Danh sách thông báo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-wrapper-light-green">
+    <div class="icon-feature-area mb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="icon-feature-wrapper">
+                        <div class="row row-5">
+                            <h1 style="width: 100%; text-align: center; ">DANH SÁCH HỒ SƠ THIẾU THÔNG TIN</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 order-1">
+                        <div class="">
+                            <table class="table table-bordered" style="width: 100%; ">
+                                <tbody>
+                                    <tr style="text-align: center; ">
+                                        <th>MÃ HỒ SƠ</th>
+                                        <th>NGÀY TẠO</th>
+                                        <th>CHỨC NĂNG</th>
+                                    </tr>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr style="text-align: center; ">
+                                                <td>
+                                                    <a href="#" style="padding-top: 20px; text-transform: uppercase !important; font-size: 16px !important;">
+                                                        <strong> @item.FileCode</strong>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <p class="product-title"><a href="#">@item.CreatedAt.ToString("dd-MM-yyyy")</a></p>
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("Edit","File", new { Id = item.Id })" class="theme-button list-cart-button mb-10" style="margin:0px;">Cập nhật</a>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <!--=======  End of grid view product  =======-->
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿@model Core.DTO.Articles.ArticlesViewModels
+@using Core.WEB.MVC.Resources
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">@General.Home</a></li>
+                        <li>@General.Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 order-2">
+                <div class="page-sidebar">
+                    <div class="sidebar-widget-wrapper">
+                        <div class="sidebar-widget pb-10">
+                            <h3 class="sidebar-widget-title">@General.CATEGORIES</h3>
+                            @if (Model.Categories != null && Model.Categories.Any())
+                            {
+                                <ul class="category-list border-bottom-0 pb-0">
+                                    @foreach (var categories in Model.Categories)
+                                    {
+                                        <li><a href="javascript:void(0)">@categories.Name (@categories.TotalArticle)</a></li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                        @if (Model.ArticlesRecent != null && Model.ArticlesRecent.Any())
+                        {
+                            <div class="sidebar-widget">
+                                <h3 class="sidebar-widget-title">RECENT POSTS</h3>
+                                <div class="block-container mt-20">
+                                    @foreach (var articleRecent in Model.ArticlesRecent)
+                                    {
+                                        <div class="single-block d-flex">
+                                            <div class="image">
+                                                <a href="@Url.Action("Detail", "Blog", new { q = articleRecent.Alias })">
+                                                    <img src="@Url.Content(articleRecent.ImageURL)" class="img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <p><a href="@Url.Action("Detail", "Blog", new { q = articleRecent.Alias })">@articleRecent.Title</a> <span>@articleRecent.CreatedAt.ToString("dd.MM.yyyy")</span></p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1">
+                @if (Model.Articles != null && Model.Articles.Any())
+                {
+                    <div class="blog-single-post-container mb-30">
+                        <h3 class="post-title">@Model.Articles[0].Title</h3>
+                        <div class="post-meta">
+                            <p><span><i class="fa fa-user-circle"></i> Posted By: </span> <a href="javascript:void(0)">@Model.Articles[0].EmployeeName</a> <span class="separator">|</span> <span><i class="fa fa-calendar"></i> Posted On: <a href="javascript:void(0)">@Model.Articles[0].CreatedAt.ToString("dd.MM.yyyy")</a></span></p>
+                        </div>
+
+                        @*<div class="single-blog-post-media mb-xs-20">
+                            <div class="image">
+                                <img src="@Url.Content(Model.Articles[0].ImageURL)" class="img-fluid" alt="">
+                            </div>
+                        </div>*@
+                        @if (!string.IsNullOrEmpty(Model.Articles[0].Contents))
+                        {
+                            <div class="post-content mb-40">
+                                @Html.Raw(Model.Articles[0].Contents)
+                            </div>
+                        }
+                        <div class="social-share-buttons mb-40">
+                            <h3>share this post</h3>
+                            <ul>
+                                <li><a class="twitter" href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="facebook" href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="google-plus" href="javascript:void(0)"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a class="pinterest" href="javascript:void(0)"><i class="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                        @if (Model.ArticlesRelated != null && Model.ArticlesRelated.Any())
+                        {
+                            <div class="related-post-container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="related-post-title mb-30">@General.RELATEDPOSTS</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach (var articleReated in Model.ArticlesRelated)
+                                    {
+                                        <div class="col-lg-4 col-md-4 mb-sm-20">
+                                            <div class="single-related-post">
+                                                <div class="image">
+                                                    <a href="@Url.Action("Detail", "Blog", new { q = articleReated.Alias })">
+                                                        <img src="@Url.Content(articleReated.ImageURL)" class="img-fluid" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h3 class="related-post-title">
+                                                        <a href="@Url.Action("Detail", "Blog", new { q = articleReated.Alias })">@articleReated.Title</a>
+                                                        <span>@articleReated.CreatedAt.ToString("dd.MM.yyyy")</span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+﻿@{
+    Layout = null;
+}
+@using Core.Common.Extentions;
+@using Core.Common.Enum
+@model Core.DTO.Account.AccountDTO
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset style="width: 100%">
+                    <legend>THÔNG TIN CHUNG</legend>
+                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3 text-center">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        @if (string.IsNullOrEmpty(Model.Avartar))
+                                        {
+                                            <img src="~/Images/DefaultUser.jpg" height="300" width="300" style="box-shadow: 0px 0px 5px #676363; cursor:pointer" class="img-circle" id="btn-change-image" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content(Model.Avartar)" height="300" width="300" style="box-shadow: 0px 0px 5px #676363; cursor:pointer" class="img-circle" id="btn-change-image" />
+                                        }
+                                        @Html.HiddenFor(model => model.Avartar)
+                                        @Html.HiddenFor(model => model.SecurityStamp)
+                                        @Html.TextBoxFor(model => model.PictureUpload, new { @type = "file", @class = "hidden", @accept = ".png, .jpg, .jpeg" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Họ Tên</label>
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = "Nhập họ tên", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label>Email</label>
+                                        @if (!string.IsNullOrEmpty(Model.Id))
+                                        {
+                                            @Html.HiddenFor(model => model.Email)
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Nhập Email", @autocomplete = "off" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Nhập Email", @autocomplete = "off" })
+                                        }
+                                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Mật Khẩu</label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Địa Chỉ</label>
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Phone</label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label>Ngày Sinh</label>
+                                        <div class='input-group date datetimepicker3' data-date-format="dd-mm-yyyy">
+                                            @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control input-group-addon", placeholder = "Nhập ngày sinh" })
+
+                                            <div class="input-group-append input-group-addon">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.DateOfBirth, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Giới Tính</label>
+                                        @Html.DropDownListFor(model => model.Gender,
+                                                        new SelectList(EnumCommon.EGender.Male.ToSelectListByDes(), "Value", "Text", Model.Gender), null,
+                                                        new
+                                                        {
+                                                            @class = "form-control cc-select2-gender custom-select",
+                                                            @style = "width:100%;",
+                                                            @id = "GenderId"
+                                                        })
+                                        @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Phòng Ban</label>
+                                        @Html.DropDownListFor(model => model.Department,
+                                                        new SelectList(EnumCommon.EDepartment.Admin.ToSelectListByDes(), "Value", "Text", Model.Department), null,
+                                                        new
+                                                        {
+                                                            @class = "form-control cc-select2-gender custom-select",
+                                                            @style = "width:100%;",
+                                                            @id = "GenderId"
+                                                        })
+                                        @Html.ValidationMessageFor(model => model.Department, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label></label>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                @Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck custom-control-input", @id = "active" })
+                                                <label class="custom-control-label" for="active">Trạng thái</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    <a href="@Url.Action("Index","AccountManagement")" class="btn btn-outline-secondary">Huỷ</a>
+                    <button class="btn btn-outline-primary" type="submit">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-change-image").on("click", function () {
+            $("#PictureUpload").click();
+        });
+
+        $("#PictureUpload").on("change", function () {
+            PreviewImage(this, 'btn-change-image')
+        })
+
+        $('[id=Password]').val('@Model.Password')
+    })
+    function PreviewImage(e, previewElementID) {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(e.files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById(previewElementID).src = oFREvent.target.result;
+        };
+    };
+</script>

@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.Department.DepartmentDTO
+<div class="category-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Homepage" }, { "DepartmentManagement", "Department Management" }, { "C", "Add" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "DepartmentManagement") }, { "mShowButton", "false" } })
+
+        @using (Html.BeginForm("New", "DepartmentManagement", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+        {
+            @Html.Partial("_Form", Model)
+        }
+</div>
+

@@ -1,0 +1,222 @@
+﻿@using Core.WEB.MVC.Resources
+@model Core.DTO.Model.HomeViewModels
+@using Authentication
+@using Core.Common.Enum
+@using Core.Common.Extentions
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var UsersInfo = Authentication.UserServices.GetInfoCustomer();
+    var ideaCates = Authentication.UserServices.GetAllIdeaCategory();
+}
+<div class="row content" style="display: inline-block; height: auto !important; margin-bottom: 25px">
+    <div class="col-sm-3 sidenav">
+        <h4 style="padding-left: 3%">Ideas</h4>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            @if (ideaCates != null)
+            {
+                foreach (var item in ideaCates)
+                {
+                    <li><a href="@Url.Action("IdeaCate", "Home", new { id = item.Id })">@item.Name</a></li>
+                }
+            }
+        </ul><br>
+
+
+        <form action="@Url.Action("Idea", "Home")">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control search" placeholder="Search idea..">
+                <span class="input-group-btn">
+                    <button class="btn btn-default clss-search" onclick="searchF()">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-9">
+        <div class="rows">
+            <div class="col-lg-8 col-md-8">
+                <h4><small>RECENT POSTS</small></h4>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <!--=======  header top dropdown container  =======-->
+                @if (UsersInfo == null)
+                {
+                    <div class="topnav">
+                        <div class="login-container">
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form-login", @class = "form-horizontal needs-validation" }))
+                            {
+                                <input type="text" placeholder="Email" name="Email" required>
+                                <input type="text" placeholder="Password" name="Password" required>
+                                <button class="btn btn-success" id="id-login">Login</button>
+                            }
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="topnav">
+                        <div class="login-container" style="display: flex; align-items: center">
+                            <span style="color: red">@UsersInfo.FullName</span>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">
+                                    Logout
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <hr>
+        <br />
+        <br />
+        @if (UsersInfo != null)
+        {
+            <h4>Post Idea of you:</h4>
+            using (Html.BeginForm("AddIdea", "Home", FormMethod.Post, new { id = "form-add-idea", @class = "form-horizontal needs-validation" }))
+            {
+                <div class="col-sm-1 text-center">
+                    <label class="form-control-label">Category</label>
+                </div>
+                <div class="col-sm-3 text-center">
+                    @Html.DropDownList("IdeaCategoryId",
+                        new SelectList(ideaCates, "Id", "Name", "IdeaCategoryId"), null,
+                        new
+                        {
+                            @class = "form-control select2_multiple custom-select",
+                            @style = "width:100%;",
+                            @id = "IdeaCategoryId",
+                        })
+                </div>
+                <div class="col-sm-4 text-center">
+                    <input class="form-control" type="text" name="name" placeholder="Enter name idea" required />
+                </div>
+                <div class="col-sm-2 text-center">
+                    <input class="custom-file-label" type="file" name="file" required />
+                </div>
+                <div class="col-sm-2 text-center">
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            }
+        }
+
+        <br><br>
+
+        <hr>
+
+        @if (Model.Ideas != null)
+        {
+            foreach (var idea in Model.Ideas)
+            {
+                <div style="display: grid">
+                    <div><h2>@idea.Name</h2></div>
+                    <h5><span class="glyphicon glyphicon-time"></span> Post by @idea.CreatedBy, @idea.CreatedAt.ToString("mm-dd-yyyy hh:mm")</h5>
+                    <h5><span class="label label-success">Like</span> <span class="label label-danger">Unlike</span> <span class="label label-primary">View</span></h5><br>
+                    @if (idea.Files != null)
+                    {
+                        foreach (var file in idea.Files)
+                        {
+                            <p><a href="@file.FilePath" download="">Dowload file</a></p>
+                            <p><span class="badge">@file.Comments.Count()</span> Comments:</p>
+                            if (file.Comments != null)
+                            {
+                                foreach (var comment in file.Comments)
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <p>@comment.Comment</p>
+                                            <h4>@comment.CreatedBy <small>@comment.CreatedAt.ToString("mm-dd-yyyy hh:mm")</small></h4>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            <div>
+                                @using (Html.BeginForm("AddComment", "Home", FormMethod.Post, new { id = "form-add-comment", @class = "form-horizontal needs-validation" }))
+                                {
+                                    <input type="hidden" name="FileId" value="@file.Id" />
+                                    <div class="col-sm-11 text-center">
+                                        <textarea class="form-control" name="Comment" rows="2" required></textarea>
+                                    </div>
+                                    <div class="col-sm-1 text-center">
+                                        <button class="btn btn-success" id="id-login">Add</button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    $("[id=form-add-comment]").submit(function (event) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+            }
+        });
+        event.preventDefault();
+    })
+
+    $("[id=form-add-idea]").submit(function (event) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+            }
+        });
+        event.preventDefault();
+    })
+
+    $("[id=form-login]").submit(function (event) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+            }
+        });
+        event.preventDefault();
+    })
+
+    function searchF() {
+        $.ajax({
+            url: '@Url.Action("Idea", "Home")',
+            data: {
+                search: $(".search").val(),
+            },
+            dataType: 'json'
+        });
+    };
+</script>

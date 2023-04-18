@@ -1,0 +1,113 @@
+﻿@model Core.DTO.Event.EventsViewModels
+@using Core.WEB.MVC.Resources
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">@General.Home</a></li>
+                        <li>Sự kiện</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 order-2">
+                <div class="page-sidebar">
+                    <div class="sidebar-widget-wrapper">                        
+                        @if (Model.EventsRecent != null && Model.EventsRecent.Any())
+                        {
+                            <div class="sidebar-widget">
+                                <h3 class="sidebar-widget-title">Sự kiện gần đây</h3>
+                                <div class="block-container mt-20">
+                                    @foreach (var item in Model.EventsRecent)
+                                    {
+                                        <div class="single-block d-flex">
+                                            <div class="image">
+                                                <a href="@Url.Action("Detail", "Event", new { q = item.AliasVi })">
+                                                    <img src="@Url.Content(item.ImageURL)" class="img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <p><a href="@Url.Action("Detail", "Event", new { q = item.AliasVi })">@item.TitleVi</a> <span>@item.CreatedAt.ToString("dd.MM.yyyy")</span></p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1">
+                @if (Model.Events != null && Model.Events.Any())
+                {
+                    <div class="blog-single-post-container mb-30">
+                        <h3 class="post-title">@Model.Events[0].TitleVi</h3>
+                        <div class="post-meta">
+                            <p><span><i class="fa fa-user-circle"></i> Posted By: </span> <a href="javascript:void(0)">@Model.Events[0].EmployeeName</a> <span class="separator">|</span> <span><i class="fa fa-calendar"></i> Posted On: <a href="javascript:void(0)">@Model.Events[0].CreatedAt.ToString("dd.MM.yyyy")</a></span></p>
+                        </div>
+
+                        @*<div class="single-blog-post-media mb-xs-20">
+                            <div class="image">
+                                <img src="@Url.Content(Model.Articles[0].ImageURL)" class="img-fluid" alt="">
+                            </div>
+                        </div>*@
+                        @if (!string.IsNullOrEmpty(Model.Events[0].Contents))
+                        {
+                            <div class="post-content mb-40">
+                                @Html.Raw(Model.Events[0].Contents)
+                            </div>
+                        }
+                        <div class="social-share-buttons mb-40">
+                            <h3>share this post</h3>
+                            <ul>
+                                <li><a class="twitter" href="javascript:void(0)"><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="facebook" href="javascript:void(0)"><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="google-plus" href="javascript:void(0)"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a class="pinterest" href="javascript:void(0)"><i class="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                        @if (Model.EventsRecent != null && Model.EventsRecent.Any())
+                        {
+                            <div class="related-post-container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="related-post-title mb-30">Sự kiện gần đây</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @foreach (var item in Model.EventsRecent)
+                                    {
+                                        <div class="col-lg-4 col-md-4 mb-sm-20">
+                                            <div class="single-related-post">
+                                                <div class="image">
+                                                    <a href="@Url.Action("Detail", "Event", new { q = item.AliasVi })">
+                                                        <img src="@Url.Content(item.ImageURL)" class="img-fluid" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h3 class="related-post-title">
+                                                        <a href="@Url.Action("Detail", "Evnet", new { q = item.AliasVi })">@item.TitleVi</a>
+                                                        <span>@item.CreatedAt.ToString("dd.MM.yyyy")</span>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

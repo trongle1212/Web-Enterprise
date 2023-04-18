@@ -1,0 +1,62 @@
+﻿@{
+
+}
+@model List<Core.DTO.Banner.BannerDTO>
+<div class="table-responsive m-t-40" style="margin-top: 3px !important; ">
+    <table id="config-table" class="table display table-bordered table-striped no-wrap">
+        <thead>
+            <tr>
+                <th style="text-align: center">STT</th>
+                <th>Hình ảnh</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                var _index = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td width="7%" style="text-align: center; ">@_index</td>
+                        <td>
+                            <img src="@item.ImageURL" alt="@item.ImageURL" style="height: 150px; " />
+                        </td>
+                        <td width="10%">
+                            @if (item.IsActive)
+                            {
+                                <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                            }
+                            else
+                            {
+                                <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                            }
+                        </td>
+                        <td width="7%">
+                            <div class="btn-group btn-group-3 pull-right">
+                                <a href="javascript:void(0);" onclick="EditBanner('@item.Id')" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cập nhật thông tin menu">
+                                    <i class="fas fa-fw fa-pencil-alt text-success"></i>&nbsp; Cập Nhật
+                                </a>
+                                <a href="@Url.Action("Destroy", "BannerManagement", new { Id = item.Id })" class="btn btn-default btn-sm" data-confirm="Bạn Có Chắc Chán ?" data-toggle="tooltip" data-placement="bottom" title="Xoá thông tin menu">
+                                    <i class="fa fa-fw fa-trash text-danger"></i>&nbsp; Xóa
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    _index = _index + 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        if ('@ViewBag.ErrorMsg' != "") {
+            alert('@ViewBag.ErrorMsg');
+        }
+    });
+    $('#config-table').DataTable({
+        responsive: true
+    });  
+</script>

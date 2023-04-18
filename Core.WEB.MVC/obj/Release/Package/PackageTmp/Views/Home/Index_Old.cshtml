@@ -1,0 +1,177 @@
+﻿@using Core.WEB.MVC.Resources
+@model Core.DTO.Model.HomeViewModels
+@using Authentication
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listBanner = UserServices.GetListBanner();
+    if (listBanner == null)
+    {
+        listBanner = new List<Core.DTO.Banner.BannerDTO>();
+    }
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+    <style>
+        .table td, .table th {
+            vertical-align: middle !important;
+        }
+    </style>
+    <div class="page-wrapper-light-green">
+        <!--====================  hero slider area ====================-->
+        <div class="hero-slider-area mb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--=======  hero slider wrapper  =======-->
+                        <div class="hero-slider-wrapper">
+                            <div class="ht-slick-slider"
+                                 data-slick-setting='{
+                        "slidesToShow": 1,
+                        "slidesToScroll": 1,
+                        "arrows": false,
+                        "dots": true,
+                        "autoplay": true,
+                        "autoplaySpeed": 5000,
+                        "speed": 1000,
+                        "fade": true
+                        }'
+                            data-slick-responsive='[
+                            {"breakpoint":1501, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":1199, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":991, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":767, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":575, "settings": {"slidesToShow": 1} },
+                            {"breakpoint":479, "settings": {"slidesToShow": 1} }
+                        ]'>
+
+                            @if (listBanner != null && listBanner.Any())
+                            {
+                                int _index = 1;
+                                foreach (var item in listBanner)
+                                {
+                                    <!--=======  single slider item  =======-->
+                                    <div class="single-slider-item">
+                                        <div class="hero-slider-item-wrapper hero-slider-bg" style="background-image: url(@Url.Content(item.ImageURL)">
+                                            <div class="hero-slider-content pl-60 pl-sm-30">
+                                                <p class="slider-title slider-title--small">CAM CAO PHONG</p>
+                                                <p class="slider-title slider-title--small-bold">HỆ THỐNG QUẢN LÝ THÀNH VIÊN CAM CAO PHONG</p>
+                                                <p class="slider-title slider-title--big-light">@General.Topservice</p>
+                                                @*<a class="theme-button hero-slider-button" href="@Url.Action("Index", "Product")">@General.ShoppingNow</a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    _index = _index + 1;
+                                    <!--=======  single slider item  =======-->
+                                }
+                            }
+                            </div>
+                        </div>
+                        <!--=======  End of hero slider wrapper  =======-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================  End of hero slider area  ====================-->
+
+        <!--====================  icon feature area ====================-->
+        <div class="icon-feature-area mb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--=======  icon feature wrapper  =======-->
+                        <div class="icon-feature-wrapper">
+                            <div class="row row-5">
+                                <h1 style="width: 100%; text-align: center; ">DANH SÁCH CHỨNG NHẬN HIỆP HỘI CAM CAO PHONG</h1>
+                            </div>
+                        </div>
+                        <!--=======  End of icon feature wrapper  =======-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================  End of icon feature area  ====================-->
+        <!--==================== page content ====================-->
+
+        <div class="page-section pb-40">
+            <div class="container">
+                <div class="row" style="padding: 30px 0px 0px 0px;">
+                    <div class="col-lg-12 order-1">
+                        <!--=======  shop page content  =======-->
+                        <div class="">
+                            <table class="table table-bordered" style="width: 100%; ">
+                                <tbody>
+                                    <tr style="text-align: center; ">
+                                        <th>MÃ CHỨNG NHẬN</th>
+                                        <th>THÀNH VIÊN</th>
+                                        <th>THỜI GIAN CHỨNG NHẬN</th>
+                                        <th>CHỨC NĂNG</th>
+                                    </tr>
+                                    @if (Model.Files != null && Model.Files.Any())
+                                    {
+                                        foreach (var item in Model.Files)
+                                        {
+                                            <tr style="text-align: center; ">
+                                                <td>
+                                                    <a href="#" style="text-transform: uppercase !important; font-size: 16px !important;">
+                                                        <strong> @item.RegistrationNumber</strong>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" style="text-transform: uppercase !important; font-size: 16px !important;">
+                                                        <strong> @item.FullName</strong>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">@item.ExpiredDay.Value.ToString("dd-MM-yyyy")</a>
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("CertificationDetail", "Home", new { q= item.Id })" class="theme-button list-cart-button" style="background-color: #49b14d !important">Xem chi tiết</a>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <!--=======  End of grid view product  =======-->
+                        </div>
+                        <!--=======  End of shop page content  =======-->
+                        <!--=======  pagination  =======-->
+                        @*<div class="pagination-section mb-md-30 mb-sm-30">
+                            <ul class="pagination">
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">></a></li>
+                                <li><a href="#">>|</a></li>
+                            </ul>
+
+                            <div class="pagination-text">
+                                Showing 1 to 9 of 15 (2 Pages)
+                            </div>
+                        </div>*@
+                        <!--=======  End of pagination  =======-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================  End of page content  ====================-->
+    </div>
+
+    <script>
+        startTime();
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('idHour').innerHTML = h;
+            document.getElementById('idMinute').innerHTML = m;
+            document.getElementById('idSeconds').innerHTML = s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>

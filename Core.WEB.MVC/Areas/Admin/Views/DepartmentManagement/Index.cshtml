@@ -1,0 +1,71 @@
+﻿@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.Department.DepartmentDTO>
+@using Core.Common.Extentions
+@using Core.Common.Enum
+<div class="account-management">
+     @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Homepage" }, { "DepartmentManagement", "Department Management" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "DepartmentManagement") }, { "mShowButton", "true" } })
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive m-t-40">
+                            <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th style="max-width:20px !important;">No.</th>
+                                        <th>Name</th>
+                                        <th>QA manager</th>
+                                        <th style="width:5%;">Status</th>
+                                        <th style="width:5%;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        var No = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            No = No + 1;
+                                            <tr>
+                                                <td>@No</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.QAName</td>
+                                                <td class="text-center">
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-2 pull-right">
+                                                        <a href="@Url.Action("Edit","DepartmentManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                                            <i class="fas fa-fw fa-pencil-alt text-success"></i> &nbsp;
+                                                        </a>
+                                                        <a href="javascript:void(0)" onclick="ConfirmSwalMessage('Do you want delete','', 'Agree', 'Cancel','@Url.Action("Destroy", "DepartmentManagement", new { Id = item.Id })')" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                                            <i class="fa fa-fw fa-trash text-danger"></i> &nbsp;
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

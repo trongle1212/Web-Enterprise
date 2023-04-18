@@ -1,0 +1,79 @@
+﻿@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.Customer.CustomerDTO>
+@using Core.Common.Extentions
+@using Core.Common.Enum
+<div class="account-management">
+     @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Trang chủ" }, { "CustomerManagement", "Quản Lý Danh Sách Thành Viên" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "CustomerManagement") }, { "mShowButton", "false" } })
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive m-t-40">
+                            <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th style="max-width:20px !important;">No.</th>
+                                        <th>Tên Thành Viên</th>
+                                        <th>Email</th>
+                                        <th>Số điện thoại</th>
+                                        <th style="width:5%;">Trạng Thái</th>
+                                        <th style="width:5%;">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        var No = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            No = No + 1;
+                                            <tr>
+                                                <td>@No</td>
+                                                <td>@item.FullName</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone</td>
+                                                <td class="text-center">
+                                                    @if (item.IsApproved)
+                                                    {
+                                                        <label class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Thông tin khách hàng đã được xác nhận"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Thông tin khách hàng chưa được xác nhận"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-1 pull-right">
+                                                        @if (item.IsApproved)
+                                                        {
+                                                            <span class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Tài khoản đã được xác nhận thông tin">
+                                                                <i class="fas fa-fw fa-check text-success"></i> &nbsp; Đã xác nhận tài khoản
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("Approved","CustomerManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Xác nhận thông tin khách hàng">
+                                                                <i class="fas fa-fw fa-pencil-alt text-success"></i> &nbsp; Xác nhận tài khoản
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

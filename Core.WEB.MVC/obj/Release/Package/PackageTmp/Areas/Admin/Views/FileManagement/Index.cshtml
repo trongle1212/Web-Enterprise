@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.File.FileDTO>
+@using Core.Common.Extentions
+@using Core.Common.Enum
+@using Authentication
+@{
+    var UserInfo = UserServices.GetInfoCustomer();
+}
+<div class="account-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string>
+       { { "Home", "Trang chủ" }, { "FileManagement", "Quản lý hồ sơ" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "FileManagement") }, { "mShowButton", "false" } })
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1" style="max-width:20px !important;">No.</th>
+                                    <th data-priority="1">Cá nhân or tổ chức</th>
+                                    <th data-priority="1">Trạng Thái</th>
+                                    <th>Ngày Tạo</th>
+                                    <th>Tệp CDDL</th>
+                                    <th>Tệp SXKDCLSP</th>
+                                    <th>Tệp DKKD</th>
+                                    <th>Thời hạn</th>
+                                    <th data-priority="1" style="width:5%;">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var No = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        var colorName = "";
+
+                                        if (item.Status == (byte)EnumCommon.EFileStatus.InProcess)
+                                        {
+                                            colorName = "#13adad";
+                                        }
+                                        else if (item.Status == (byte)EnumCommon.EFileStatus.Approved1)
+                                        {
+                                            colorName = "#66CCFF";
+                                        }
+                                        else if (item.Status == (byte)EnumCommon.EFileStatus.Approved2)
+                                        {
+                                            colorName = "#00FF00";
+                                        }
+                                        else if (item.Status == (byte)EnumCommon.EFileStatus.Improved)
+                                        {
+                                            colorName = "#b9b90e";
+                                        }
+                                        else if (item.Status == (byte)EnumCommon.EFileStatus.Done)
+                                        {
+                                            colorName = "#00CC00";
+                                        }
+                                        else if (item.Status == (byte)EnumCommon.EFileStatus.Cancel)
+                                        {
+                                            colorName = "#FF0000";
+                                        }
+                                        No = No + 1;
+                                        <tr>
+                                            <td>@No</td>
+                                            <td>@item.FullName</td>
+                                            <td>
+                                                <label class="label label-info" style="background-color: @colorName; color: #000; ">@ExtensionClass.GetEnumDescription((EnumCommon.EFileStatus)item.Status)</label>
+                                            </td>
+                                            <td>@item.CreatedAt.ToString("dd.MM.yyyy hh:mm tt")</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.FileNameCDDL))
+                                                {
+                                                    <span>@item.FileNameCDDL.Replace("~/Uploads/Files/", "")</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.FileNameSXKDCLSP))
+                                                {
+                                                    <span>@item.FileNameSXKDCLSP.Replace("~/Uploads/Files/", "")</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.FileNameDKKD))
+                                                {
+                                                    <span>@item.FileNameDKKD.Replace("~/Uploads/Files/", "")</span>
+                                                }
+                                            </td>
+                                            
+                                            <td>
+                                                @if (item.ExpiredDay.HasValue)
+                                                {
+                                                    <span>@item.ExpiredDay.Value.ToString("dd.MM.yyyy")</span>
+                                                }
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="btn-group btn-group-1 pull-right">
+                                                    @if (UserInfo.Department == (int)EnumCommon.EDepartment.HoiSanXuatKD && item.Status == (int)EnumCommon.EFileStatus.InProcess)
+                                                    {
+
+                                                        <a href="@Url.Action("Edit","FileManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Hội sản xuất kiểm định xác nhận thông tin hồ sơ">
+                                                            <i class="fas fa-fw fa-eye-slash text-success"></i> &nbsp;
+                                                        </a>
+                                                    }
+                                                    @if (UserInfo.Department == (int)EnumCommon.EDepartment.PhongKinhTeHaTang && item.Status == (int)EnumCommon.EFileStatus.Approved1)
+                                                    {
+                                                        <a href="@Url.Action("Edit","FileManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Phòng kinh tế hạ tầng xác nhận thông tin hồ sơ">
+                                                            <i class="fas fa-fw fa-eye-slash text-success"></i> &nbsp;
+                                                        </a>
+                                                    }
+                                                    @if (UserInfo != null && UserInfo.Department == (int)EnumCommon.EDepartment.PhongChungNhan && item.Status == (int)EnumCommon.EFileStatus.Approved2)
+                                                    {
+                                                        <a href="@Url.Action("Certification","FileManagement", new { Id = item.Id })" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="bottom">
+                                                            Chứng Nhận Hồ Sơ
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

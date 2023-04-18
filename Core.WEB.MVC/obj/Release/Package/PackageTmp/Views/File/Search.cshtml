@@ -1,0 +1,70 @@
+﻿@model List<Core.DTO.File.FileDTO>
+@using Core.WEB.MVC.Resources
+@{
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">@General.Home</a></li>
+                        <li class="has-child">Chứng Nhận</li>
+                        <li>Kết Quả Tìm Kiếm </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 order-1">
+                <!--=======  shop page content  =======-->
+                <div class="">
+                    @if (Model != null && Model.Any())
+                    {
+                        <table class="table table-bordered" style="width: 100%; ">
+                            <tbody>
+                                <tr style="text-align: center; ">
+                                    <th>MÃ CHỨNG NHẬN</th>
+                                    <th>NGÀY HẾT HẠN</th>
+                                    <th>CHỨC NĂNG</th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr style="text-align: center; ">
+                                        <td>
+                                            <a href="#" style="padding-top: 20px; text-transform: uppercase !important; font-size: 16px !important;">
+                                                <strong> @item.RegistrationNumber</strong>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <p class="product-title"><a href="#">@item.ExpiredDay.Value.ToString("dd-MM-yyyy")</a></p>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("CertificationDetail", "Home", new { q= item.Id })" class="theme-button list-cart-button mb-10">Xem chi tiết</a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div style="padding: 30px 0px 0px 0px; border: 2px solid #fb9678; ">
+                            <div style="text-align:center;margin-top:-25px;">Không có kết quả phù hợp</div>
+                        </div>
+                    }
+
+                    <!--=======  End of grid view product  =======-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

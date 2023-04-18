@@ -1,0 +1,98 @@
+﻿@using Core.WEB.MVC.Resources
+@{
+    var UsersInfo = Authentication.UserServices.GetInfoCustomer();
+}
+@model Core.DTO.Company.CompanyDTO
+
+<!--====================  Navigation top ====================-->
+<div class="navigation-top">
+    <!--====================  navigation section ====================-->
+    @*<div class="navigation-top-topbar pt-10 pb-10">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-6 text-center text-md-left">
+                    <!--=======  header top social links  =======-->
+                    <div class="header-top-social-links">
+                        <span class="follow-text mr-15">@General.FollowUs:</span>
+                        <!--=======  social link small  =======-->
+
+                        <ul class="social-link-small">
+                            <li><a href="@Model.LinkFacebook"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="@Model.LinkTwitter"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="@Model.LinkLindedIn"><i class="ion-social-linkedin"></i></a></li>
+                            <li><a href="@Model.LinkPinterest"><i class="ion-social-pinterest"></i></a></li>
+                            <li><a href="@Model.LinkYoutube"><i class="ion-social-youtube"></i></a></li>
+                        </ul>
+
+                        <!--=======  End of social link small  =======-->
+                    </div>
+
+
+                    <!--=======  End of header top social links  =======-->
+                </div>
+                <div class="col-lg-4 offset-lg-4 col-md-6">
+                    <!--=======  header top dropdown container  =======-->
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <!--====================  End of navigation section  ====================-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--====================  navigation top search ====================-->
+                <div class="navigation-top-search-area">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-xl-2 col-lg-3 order-1 col-md-6 col-sm-5">
+                            <!--=======  logo  =======-->
+
+                            <div class="logo" style="width: 100%; text-align: center; ">
+                                <a href="@Url.Action("Index","Home")">
+                                    <img src="@Url.Content("~/Images/logo/logo.png")" style=" " class="img-fluid" alt="">
+                                </a>
+                            </div>
+
+                            <!--=======  End of logo  =======-->
+                        </div>
+
+                        <div class="col-12 col-xl-7 col-lg-6 order-1 col-md-6 col-sm-5">
+                            <!--=======  search bar  =======-->
+                            <div style="text-align: center">
+                                <p style="line-height: 38px; "><span><strong style="font-size: 32px;">HỘI SẢN XUẤT VÀ KINH DOANH</strong></span> <br /><span><strong style="font-size: 40px;">CAM CAO PHONG</strong></span></p>
+                            </div>
+                            @*<div class="search-bar">
+                                <form action="tim-kiem">
+                                    <input type="search" name="q" placeholder="Nhập từ khóa tìm kiếm ...">
+                                    <button type="submit"> <i class="fa fa-search"></i></button>
+                                </form>
+                            </div>*@
+
+                            <!--=======  End of search bar  =======-->
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 order-3 order-sm-2 order-lg-3 order-xs-3 col-md-4 col-sm-5 text-center text-sm-left mt-xs-25">
+                            <!--=======  customer support text  =======-->
+
+                            <div class="customer-support-text">
+                                <div class="icon">
+                                    <img src="@Url.Content("~/Images/icon/icon-header-phone-green.png")" class="img-fluid" alt="">
+                                </div>
+
+                                <div class="text">
+                                    <span>Liên hệ</span>
+                                    <p>@Model.Phone</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================  End of navigation top search  ====================-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--====================  End of Navigation top  ====================-->

@@ -1,0 +1,69 @@
+﻿@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.Category.CategoriesDTO>
+@using Core.Common.Extentions
+@using Core.Common.Enum
+<div class="account-management">
+     @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Trang chủ" }, { "CategoryBlogManagement", "Quản lý thể loại bài viết" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "CategoryBlogManagement") }, { "mShowButton", "true" } })
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive m-t-40">
+                            <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th style="max-width:20px !important;">No.</th>
+                                        <th>Tên Thể Loại</th>
+                                        <th style="width:5%;">Trạng Thái</th>
+                                        <th style="width:5%;">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        var No = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            No = No + 1;
+                                            <tr>
+                                                <td>@No</td>
+                                                <td>@item.NameVi</td>
+                                                <td class="text-center">
+                                                    @if (item.IsActive)
+                                                    {
+                                                        <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-2 pull-right">
+                                                        <a href="@Url.Action("Edit","CategoryBlogManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cập nhật thông tin thể loại bài viết">
+                                                            <i class="fas fa-fw fa-pencil-alt text-success"></i> &nbsp;
+                                                        </a>
+                                                        <a href="javascript:void(0)" onclick="ConfirmSwalMessage('Bạn Có Chắc Muốn Xoá','', 'Đồng Ý', 'Huỷ','@Url.Action("Destroy", "CategoryBlogManagement", new { Id = item.Id })')" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Xoá thông tin thể loại bài viết">
+                                                            <i class="fa fa-fw fa-trash text-danger"></i> &nbsp;
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

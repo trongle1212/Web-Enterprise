@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="100%MoneyBack" xml:space="preserve">
+    <value>100% Money Back</value>
+  </data>
+  <data name="100%SecurePayment" xml:space="preserve">
+    <value>100% Secure Payment</value>
+  </data>
+  <data name="24/7SUPPORT" xml:space="preserve">
+    <value>24/7 SUPPORT</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddressMain" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddtoCart" xml:space="preserve">
+    <value>Add to Cart</value>
+  </data>
+  <data name="Affiliate" xml:space="preserve">
+    <value>Affiliate</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="AvailabilityStatus" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="Becomingaleadingeconomiccorporationof Vietnam" xml:space="preserve">
+    <value>Becoming a leading economic corporation of Vietnam, operating in multiple industries, globally, bringing the highest added value to shareholders, partners, employees and society.</value>
+  </data>
+  <data name="Becomingamultiindustryeconomicgroupthecompanysasset" xml:space="preserve">
+    <value>Becoming a multi-industry economic group, the company's asset value and brand name are among the largest non-state enterprises in Vietnam.</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Billing Address</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Brands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>by</value>
+  </data>
+  <data name="CalculateShipping" xml:space="preserve">
+    <value>Calculate Shipping</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="CallNow" xml:space="preserve">
+    <value>Call us now</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
+  <data name="CartSummary" xml:space="preserve">
+    <value>Cart Summary</value>
+  </data>
+  <data name="CartTotal" xml:space="preserve">
+    <value>Cart Total</value>
+  </data>
+  <data name="CATEGORIES" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="Committoqualityproducts" xml:space="preserve">
+    <value>Commit to quality products</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="CompanyOperations" xml:space="preserve">
+    <value>Company operations</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="ContactUs24hrsADay" xml:space="preserve">
+    <value>Contact us 24 hrs a day</value>
+  </data>
+  <data name="Createordersonlinequickly" xml:space="preserve">
+    <value>Create orders online quickly</value>
+  </data>
+  <data name="Customerrefundpolicy" xml:space="preserve">
+    <value>Customer refund policy</value>
+  </data>
+  <data name="CustomerSupport" xml:space="preserve">
+    <value>Customer Support</value>
+  </data>
+  <data name="Customersupport247" xml:space="preserve">
+    <value>24/7 Customer support </value>
+  </data>
+  <data name="DeliveryInformation" xml:space="preserve">
+    <value>Delivery Information</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DongNguyenXanh" xml:space="preserve">
+    <value>Dong Nguyen Xanh</value>
+  </data>
+  <data name="DongnguyenxanhWillBeAPlaceToMeetAllTheNeedsOfCustomers" xml:space="preserve">
+    <value>Dongnguyenxanh will be a place to meet all the needs of customers in terms of product variety, quality and reasonable prices. Dongnguyenxanh will always try our best to innovate to constantly improve the quality of our products in response to our customers' trust.</value>
+  </data>
+  <data name="Easy" xml:space="preserve">
+    <value>Easy</value>
+  </data>
+  <data name="EASYORDER" xml:space="preserve">
+    <value>EASY ORDER </value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="Ensurecustomerinformationsecurity" xml:space="preserve">
+    <value>Ensure customer information security</value>
+  </data>
+  <data name="EnterYourEmailAddressHere" xml:space="preserve">
+    <value>Enter your email  address here </value>
+  </data>
+  <data name="FASTDELIVERY" xml:space="preserve">
+    <value>FAST DELIVERY</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow Us</value>
+  </data>
+  <data name="FREERETURN" xml:space="preserve">
+    <value>FREE RETURN</value>
+  </data>
+  <data name="FreeShipping" xml:space="preserve">
+    <value>Free Shipping</value>
+  </data>
+  <data name="FreeShippingOnOrder" xml:space="preserve">
+    <value>Free Shipping On Order</value>
+  </data>
+  <data name="GiftCertificates" xml:space="preserve">
+    <value>Gift Certificates</value>
+  </data>
+  <data name="Guarantee" xml:space="preserve">
+    <value>Guarantee</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Hotline" xml:space="preserve">
+    <value>Hotline</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Inordertoimproveproductqualityandbetterservicequality" xml:space="preserve">
+    <value>In order to improve product quality and better service quality, Dongnguyenxanh is looking forward to the support and comments from our customers.</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="LatestBlogs" xml:space="preserve">
+    <value>Latest blogs</value>
+  </data>
+  <data name="ListProductCategories" xml:space="preserve">
+    <value>Product of category</value>
+  </data>
+  <data name="LowestPrice" xml:space="preserve">
+    <value>Lowest Price</value>
+  </data>
+  <data name="MONEYBACKGUARNTEE" xml:space="preserve">
+    <value>MONEY BACK GUARNTEE</value>
+  </data>
+  <data name="NeedHelp" xml:space="preserve">
+    <value>Need help</value>
+  </data>
+  <data name="NewProducts" xml:space="preserve">
+    <value>Payment secure</value>
+  </data>
+  <data name="OURGOAL" xml:space="preserve">
+    <value>OUR GOAL</value>
+  </data>
+  <data name="OURMISSION" xml:space="preserve">
+    <value>OUR MISSION</value>
+  </data>
+  <data name="OURVISSION" xml:space="preserve">
+    <value>OUR VISSION</value>
+  </data>
+  <data name="PaymentSecure" xml:space="preserve">
+    <value>Thanh toán an toàn</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Phoneno" xml:space="preserve">
+    <value>Phone no</value>
+  </data>
+  <data name="Placeorder" xml:space="preserve">
+    <value>Place order</value>
+  </data>
+  <data name="PopularProducts" xml:space="preserve">
+    <value>Popular products</value>
+  </data>
+  <data name="Prestigiousproducts" xml:space="preserve">
+    <value>Prestigious products</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="PriceValue" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>Product Code</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Product Details</value>
+  </data>
+  <data name="Providingdongnguyenxanhbrandproductsofinternationalquality" xml:space="preserve">
+    <value>Providing dongnguyenxanh brand products of international quality, reasonable prices, satisfying customer needs, contributing to the development of the country.</value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="QUALITYPRODUCT" xml:space="preserve">
+    <value>QUALITY PRODUCT</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Quickdeliveryaftercustomersplaceanorder" xml:space="preserve">
+    <value>Quick delivery after customers place an order</value>
+  </data>
+  <data name="Recruitment" xml:space="preserve">
+    <value>Recruitment</value>
+  </data>
+  <data name="Refundwhentheproductisnotqualified" xml:space="preserve">
+    <value>Refund when the product is not qualified</value>
+  </data>
+  <data name="RELATEDPOSTS" xml:space="preserve">
+    <value>Related posts</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Returns" xml:space="preserve">
+    <value>Returns</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchEntireProductHere" xml:space="preserve">
+    <value>Search entire product here</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Search result</value>
+  </data>
+  <data name="SECUREPAYMENT" xml:space="preserve">
+    <value>SECURE PAYMENT</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Sharethisproduct" xml:space="preserve">
+    <value>Share this product</value>
+  </data>
+  <data name="ShipsToday" xml:space="preserve">
+    <value>Ships Today</value>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>Shop</value>
+  </data>
+  <data name="ShoppingNow" xml:space="preserve">
+    <value>Shopping Now</value>
+  </data>
+  <data name="SiteMap" xml:space="preserve">
+    <value>Site Map</value>
+  </data>
+  <data name="Specials" xml:space="preserve">
+    <value>Specials</value>
+  </data>
+  <data name="Subcribe" xml:space="preserve">
+    <value>Subcribe</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="SubscribeNewsletterToGetUpdated" xml:space="preserve">
+    <value>Subscribe newsletter to get updated</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Sub-total</value>
+  </data>
+  <data name="Support24/7" xml:space="preserve">
+    <value>Support24/7</value>
+  </data>
+  <data name="TellUsYourMessage" xml:space="preserve">
+    <value>Tell Us Your Message</value>
+  </data>
+  <data name="Terms&amp;Conditions" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
+  <data name="Timenow" xml:space="preserve">
+    <value>Time now</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Dong Nguyen Xanh Company</value>
+  </data>
+  <data name="Topservice" xml:space="preserve">
+    <value>Top service</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="ViewCart" xml:space="preserve">
+    <value>View Cart</value>
+  </data>
+  <data name="WELCOMETO" xml:space="preserve">
+    <value>WELCOME TO</value>
+  </data>
+  <data name="WeReallyAppreciateYourPurchaseChoicesAlwaysCommittedToTopQualityReputation" xml:space="preserve">
+    <value>We really appreciate your purchase choices. Always committed to top quality reputation</value>
+  </data>
+  <data name="WeWillNeverShareYourEmailAddressWithAThirdparty" xml:space="preserve">
+    <value>We'll never share your email address with a third-party.</value>
+  </data>
+  <data name="WINBESTONLINESHOPAT" xml:space="preserve">
+    <value>WIN BEST ONLINE SHOP AT</value>
+  </data>
+  <data name="YouHave30DaysToReturn" xml:space="preserve">
+    <value>You have 30 Days To Return</value>
+  </data>
+  <data name="YourEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Your Message</value>
+  </data>
+  <data name="YourName" xml:space="preserve">
+    <value>Your Name</value>
+  </data>
+</root>

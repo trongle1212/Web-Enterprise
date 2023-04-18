@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Thêm Mới Bài Viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.Articles.ArticlesDTO
+
+<div class="menu-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Quản lý bài viết" }, { "C", "Thêm mới" } }, new ViewDataDictionary { { "mHref", Url.Action("Index", "ArticlesManagement", new { area = "Admin" }) }, { "mShowButton", "false" } })
+
+    @using (Html.BeginForm("New", "ArticlesManagement", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+    {
+        @Html.Partial("_Form", Model)
+    }
+</div>

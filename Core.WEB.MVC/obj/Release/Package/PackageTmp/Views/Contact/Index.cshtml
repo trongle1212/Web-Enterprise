@@ -1,0 +1,82 @@
+﻿@using Core.WEB.MVC.Resources
+@model Core.DTO.Company.CompanyDTO
+
+<!--==================== page content ====================-->
+<div class="page-section">
+    <!--=============================================
+       =            google map container         =
+       =============================================-->
+    <div class="google-map-container mb-45">
+        <div id="google-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35762.32881737427!2d105.31360639230056!3d20.709894889329245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134146d71a99055%3A0x90a18928277b9408!2zVFQuIENhbyBQaG9uZywgQ2FvIFBob25nLCBIw7JhIELDrG5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1605685505812!5m2!1svi!2s" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+    </div>
+    <!--=====  End of google map container  ======-->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-12 mb-sm-45 order-1 order-lg-2 mb-md-45">
+                <!--=======  contact page side content  =======-->
+                <div class="contact-page-side-content">
+                    <h3 class="contact-page-title">@General.ContactUs</h3>
+                    <p class="contact-page-message mb-30"></p>
+                    <!--=======  single contact block  =======-->
+                    <div class="single-contact-block">
+                        <h4><i class="fa fa-fax"></i> @General.Address</h4>
+                        <p>@Model.AddressVi</p>
+                    </div>
+                    <!--=======  End of single contact block  =======-->
+                    <!--=======  single contact block  =======-->
+                    <div class="single-contact-block">
+                        <h4><i class="fa fa-phone"></i> @General.Phone</h4>
+                        <p>@Model.Phone</p>
+                    </div>
+                    <!--=======  End of single contact block  =======-->
+                    <!--=======  single contact block  =======-->
+                    <div class="single-contact-block">
+                        <h4><i class="fa fa-envelope-o"></i> @General.Email</h4>
+                        <p>@Model.Email</p>
+                    </div>
+                    <!--=======  End of single contact block  =======-->
+                </div>
+                <!--=======  End of contact page side content  =======-->
+            </div>
+            <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+                <!--=======  contact form content  =======-->
+                <div class="contact-form-content">
+                    <h3 class="contact-page-title">@General.TellUsYourMessage</h3>
+                    <div class="contact-form">
+                        @using (Html.BeginForm("SendRequest", "Contact", FormMethod.Post, new { @id = "contact-form", @class = "form-horizontal", @enctype = "multipart/form-data", @style = "Width: 100%" }))
+                        {
+                            <div class="form-group">
+                                <label>@General.YourName <span class="required">*</span></label>
+                                <input type="text" name="Name" id="customername" required>
+                            </div>
+                            <div class="form-group">
+                                <label>@General.YourEmail <span class="required">*</span></label>
+                                <input type="email" name="Email" id="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>@General.Phone <span class="required">*</span></label>
+                                <input type="text" name="PhoneNumber" id="customerPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>@General.Subject</label>
+                                <input type="text" name="Title" id="contactSubject">
+                            </div>
+                            <div class="form-group">
+                                <label>@General.YourMessage</label>
+                                <textarea name="Content" id="contactMessage"></textarea>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" value="submit" id="submit" class="theme-button contact-button" name="submit">@General.Send</button>
+                            </div>
+                        }
+                    </div>
+                    <p class="form-messege pt-10 pb-10 mt-10 mb-10"></p>
+                </div>
+                <!--=======  End of contact form content =======-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--====================  End of page content  ====================-->

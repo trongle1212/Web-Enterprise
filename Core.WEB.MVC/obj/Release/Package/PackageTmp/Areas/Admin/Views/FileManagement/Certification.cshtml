@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.File.FileDTO
+@using Authentication
+@{
+    var UserInfo = UserServices.GetInfoCustomer();
+}
+@Html.Partial("_breadcrumb", new Dictionary<string, string>
+    { { "Home", "Trang chủ" }, { "FileManagement", "Quản Lý Hồ Sơ" }, { "C", "Chứng Nhận Hồ Sơ" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "FileManagement") }, { "mShowButton", "false" } })
+
+@using (Html.BeginForm("Certification", "FileManagement", FormMethod.Post, new { @id = "form-certification", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.FullName)
+    @Html.HiddenFor(model => model.Email)
+    @Html.HiddenFor(model => model.StartDay)
+    @Html.HiddenFor(model => model.FileCode)
+    <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <fieldset style="width: 100%">
+                        <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                            <div class="form-row">
+                                <label>Giấy Chứng Nhận <sup class="text-danger">(*)</sup></label>
+                                @if (string.IsNullOrEmpty(Model.FileNameCertification))
+                                {
+                                    @Html.TextBoxFor(model => model.FileUploadCertification, new { @type = "file", @class = "form-control" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.FileUploadCertification, new { @type = "file", @class = "form-control" })
+                                }
+                            </div>
+                            <div class="form-row">
+                                <label>Mã Chứng Nhận <sup class="text-danger">(*)</sup></label>
+                                @Html.TextBoxFor(model => model.RegistrationNumber, new { @class = "form-control" })
+                            </div>
+                            <div class="form-row">
+                                <label>Ngày bắt đầu <sup class="text-danger">*</sup></label>
+                                <div class='input-group date datetimepicker3' data-date-format="mm-dd-yyyy">
+                                    @Html.TextBoxFor(model => model.sStartDay, new { @class = "form-control input-group-addon", placeholder = "Nhập ngày bắt đầu" })
+
+                                    <div class="input-group-append input-group-addon">
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="text-right">
+                        <a href="@Url.Action("Index","FileManagement")" class="btn btn-outline-secondary">Quay lại</a>
+                        <button class="btn btn-outline-primary" type="submit">Chứng Nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $("[id=form-certification]").submit(function (event) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.status !== undefined && data.status == 400) {
+                    ToastMessage(data.message, 'error')
+                }
+                else {
+                    ToastMessage(data.message, 'success')
+                    window.location.href = "@Url.Action("Index", "FileManagement")"
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                ToastMessage("Kích thước tập tin quá lớn", 'warning')
+            }
+        });
+        event.preventDefault();
+    })
+</script>

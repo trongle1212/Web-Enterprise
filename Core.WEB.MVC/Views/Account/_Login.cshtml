@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+@model Core.DTO.Customer.LoginDTO
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "form-login" }))
+{
+    <div class="row">
+        <div class="col-md-12 col-12 mb-20">
+            <label>Email <sup class="text-danger">*</sup> </label>
+            @Html.TextBoxFor(model => model.Email, new { @class = "mb-0", placeholder = "Nhập địa chỉ E-mail" })
+            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "alert alert-danger" })
+        </div>
+        <div class="col-12 mb-20">
+            <label>Mật khẩu <sup class="text-danger">*</sup></label>
+            @Html.PasswordFor(model => model.Password, new { @class = "mb-0", placeholder = "Mật khẩu" })
+            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "alert alert-danger" })
+        </div>
+        <div class="col-md-12">
+            <button id="btnlogin" class="register-button mt-0" type="submit">Đăng nhập</button>
+        </div>
+
+        <div class="col-12" style="margin-top:15px;">
+            @if (ViewBag.LockLogin != null)
+            {
+                <div class="alert alert-danger" role="alert">@ViewBag.LockLogin</div>
+            }
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $("#form-login").submit(function (e) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "Post",
+            data: new FormData(this),
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data && data.status) {
+                    window.location.href = "@Url.Action("Index","Home")"
+                }
+                else {
+                    $('.content-login').html(data)
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) { }
+        });
+        e.preventDefault();
+    });
+</script>

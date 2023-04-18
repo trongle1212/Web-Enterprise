@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+    var error = @ViewBag.ErrorMsg;
+}
+@model List<Core.DTO.Banner.BannerDTO>
+<div class="menu-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Quản lý Danh Sách Banner" } }, new ViewDataDictionary { { "mHref", Url.Action("", "", new { area = "Admin" }) }, { "mShowButton", "true" } })
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @Html.Partial("_ListData", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Modal Upload Image*@
+<div class="modal fade bs-example-modal-refresh" id="modal-upload-image" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 50%;">
+        <div class="modal-content">
+            @using (@Html.BeginForm("BannerUpload", "BannerManagement", FormMethod.Post, new { @id = "form-edit", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+            {                
+                <div class="modal-header">
+                    <h3 class="modal-title" style=" text-align: center; color: #ffc601; font-weight: bold; font-style: italic; ">Thông tin Banner</h3>
+                    <button type="button" class="close" data-dismiss="modal" style="text-indent: unset !important; opacity: 1 !important;">&times;</button>
+                </div>
+                <div id="div-postal-code" class="modal-body scroll">
+                    <div class="data-body form-horizontal">
+                    </div>
+                </div>
+                <div class="modal-footer" style="text-align:right;">
+                    <button class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-modal">Lưu</button>
+                </div>
+            }
+            </div>
+    </div>
+</div>
+
+<script>
+
+    $(".add-listdata").submit(function (e) {
+        Search();
+        return false;
+    });
+
+    function Search() {
+        var form = $(".add-listdata");
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'post',
+            data: $(form).serialize(),
+            dataType: "html",
+            beforeSend: function () {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            },
+            success: function (data) {
+                $(".gridview").html(data);
+            },
+            complete: function () {
+            }
+        });
+        return false;
+    }
+
+    $('#id-add-new').click(function () {
+        $.ajax(
+        {
+            url: '@Url.Action("LoadBannerUpload", "BannerManagement")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            success: function (data) {
+                $(".data-body").html(data);
+                $('#modal-upload-image').modal('show');
+            },
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to crawl this Fanpage!");
+                }
+            }
+        });
+    });
+
+    function EditBanner(id) {
+        $.ajax(
+        {
+            url: '@Url.Action("LoadBannerUpload", "BannerManagement")',
+            type: 'get',
+            data: { Id: id},
+            dataType: 'html',
+            success: function (data) {
+                $('#modal-upload-image').modal('show');
+                $(".data-body").html(data);
+            },
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to crawl this Fanpage!");
+                }
+            }
+        });
+    }
+</script>

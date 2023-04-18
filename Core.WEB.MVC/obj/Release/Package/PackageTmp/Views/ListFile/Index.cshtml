@@ -1,0 +1,113 @@
+﻿@model Core.DTO.Model.HomeViewModels
+@using Core.Common.Extentions
+@using Core.Common.Enum
+@{
+    ViewBag.Title = "Dách sách hồ sơ";   
+}
+<style>
+    .table td, .table th {
+        vertical-align: middle !important; 
+    }
+</style>
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                        <li class=""><a href="#">Trạng thái chứng nhận</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--==================== page content ====================-->
+
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row" style="padding: 30px 0px 0px 0px;">
+            <div class="col-lg-12 order-1">
+                <!--=======  shop page content  =======-->
+                <div class="">
+                    <table class="table tab-content table-bordered" style="width: 100%; ">
+                        <tbody>
+                            <tr style="text-align: center; ">
+                                <th>MÃ HỒ SƠ</th>
+                                <th>THÀNH VIÊN</th>
+                                <th>TRẠNG THÁI CHỨNG NHẬN</th>
+                            </tr>
+                            @if (Model.Files != null && Model.Files.Any())
+                            {
+                                foreach (var item in Model.Files)
+                                {
+                                    var colorName = "";
+
+                                    if (item.Status == (byte)EnumCommon.EFileStatus.InProcess)
+                                    {
+                                        colorName = "color-process";
+                                    }
+                                    else if (item.Status == (byte)EnumCommon.EFileStatus.Approved1)
+                                    {
+                                        colorName = "color-approved1";
+                                    }
+                                    else if (item.Status == (byte)EnumCommon.EFileStatus.Approved2)
+                                    {
+                                        colorName = "color-approved2";
+                                    }
+                                    else if (item.Status == (byte)EnumCommon.EFileStatus.Improved)
+                                    {
+                                        colorName = "color-require";
+                                    }
+                                    else if (item.Status == (byte)EnumCommon.EFileStatus.Done)
+                                    {
+                                        colorName = "color-finished";
+                                    }
+                                    else if (item.Status == (byte)EnumCommon.EFileStatus.Cancel)
+                                    {
+                                        colorName = "color-cancel";
+                                    }
+                                    <tr style="text-align: center; ">
+                                        <td>
+                                            <a href="#" style="text-transform: uppercase !important; font-size: 16px !important;">
+                                                <strong> @item.FileCode</strong>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" style=" text-transform: uppercase !important; font-size: 16px !important;">
+                                                <strong> @item.FullName</strong>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <p class="@colorName">
+                                                @ExtensionClass.GetEnumDescription((EnumCommon.EFileStatus)item.Status)                                            
+                                            </p>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <!--=======  End of grid view product  =======-->
+                </div>
+                <!--=======  End of shop page content  =======-->
+                <!--=======  pagination  =======-->
+                @*<div class="pagination-section mb-md-30 mb-sm-30">
+                        <ul class="pagination">
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">></a></li>
+                            <li><a href="#">>|</a></li>
+                        </ul>
+
+                        <div class="pagination-text">
+                            Showing 1 to 9 of 15 (2 Pages)
+                        </div>
+                    </div>*@
+                <!--=======  End of pagination  =======-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--====================  End of page content  ====================-->

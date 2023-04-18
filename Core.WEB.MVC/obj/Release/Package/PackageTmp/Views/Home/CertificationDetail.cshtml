@@ -1,0 +1,128 @@
+﻿@model Core.DTO.File.FileDTO
+@using Core.Common.Extentions
+@using Core.Common.Enum
+<style>
+    .product-details-title {
+        font-size: 28px !important;
+    }
+    .title{
+        font-size: 18px !important;
+        font-weight: bold !important;
+    }
+    .value {
+        font-size: 16px !important;
+    }
+</style>
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                        <li class="has-child"><a href="#">Hồ sơ</a></li>
+                        <li>Chi tiết chứng nhận</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-details-area mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-detail-content">
+                    <h2 class="product-details-title mb-15"><strong>Cá nhân/tổ chức:</strong> <strong>@Model.FullName</strong> </h2>
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Mã chứng nhận :</span>
+                            <span class="value">@Model.RegistrationNumber</span>
+                        </div>
+                    </div>
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Ngày cấp chứng nhận :</span>
+                            <span class="value">@Model.StartDay.Value.ToString("dd-MM-yyyy")</span>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Thời gian chứng nhận :</span>
+                            @if (Model.ExpiredDay.HasValue)
+                            {
+                                <span class="value">@Model.ExpiredDay.Value.ToString("dd-MM-yyyy")</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Địa chỉ:</span>
+                            <span class="value">@Model.Address</span>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Email :</span>
+                            <span class="value">@Model.Email</span>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Số điện thoại :</span>
+                            <span class="value">@Model.Phone</span>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Diện tích :</span>
+                            <span class="value">@Model.Acreage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                @if (!string.IsNullOrEmpty(Model.ExtensionFileCertification) && Model.ExtensionFileCertification.Contains("jpg") || Model.ExtensionFileCertification.Contains("png"))
+                {
+                    <div style="width: 100%; height: 100%; ">
+                        <img src="@Url.Content(Model.FileNameCertification)" style="width: inherit; "/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="product-description-review-area mb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-slider-wrapper product-description-review-container">
+                        <nav>
+                            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="description-tab" data-toggle="tab" href="#product-description" role="tab"
+                                   aria-selected="true">@General.Description</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="product-description" role="tabpanel" aria-labelledby="description-tab">
+                                @if (!string.IsNullOrEmpty(Product.Description))
+                                {
+                                    <div class="product-description">
+                                        @Html.Raw(Product.Description)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

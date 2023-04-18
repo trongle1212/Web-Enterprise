@@ -1,0 +1,93 @@
+﻿@model Core.DTO.Event.EventsViewModels
+@using Core.WEB.MVC.Resources
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index","Home")"> @General.Home</a></li>
+                        <li>Sự kiện</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 order-2">
+                <div class="page-sidebar">
+                    <div class="sidebar-widget-wrapper">
+                        <div class="sidebar-widget pb-10">
+                            <h3 class="sidebar-widget-title">Sự kiện gần đây</h3>
+                            @if (Model.EventsRecent != null && Model.EventsRecent.Any())
+                            {
+                                <ul class="category-list border-bottom-0 pb-0">
+                                    @foreach (var item in Model.EventsRecent)
+                                    {
+                                        <li><a href="javascript:void(0)">@item.TitleVi</a></li>
+                                    }
+                                </ul>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1">
+                <div class="blog-post-container">
+                    <div class="row">
+                        @if (Model.Events != null && Model.Events.Any())
+                        {
+                            foreach (var item in Model.Events)
+                            {
+                                <div class="col-md-12">
+                                    <div class="single-blog-post mb-40">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-blog-post-media mb-sm-20">
+                                                    <div class="image">
+                                                        <a href="@Url.Action("Detail", "Event", new { q= item.Alias })"><img src="@Url.Content(item.ImageURL)" class="img-fluid" alt=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-blog-post-content">
+                                                    <h3 class="post-title"> <a href="@Url.Action("Detail", "Event",new { q = item.Alias })"> @item.TitleVi </a></h3>
+                                                    <div class="post-meta">
+                                                        <p><span><i class="fa fa-user-circle"></i> </span> <a href="javascript:void(0)">@item.EmployeeName</a> <span class="separator">|</span> <span><i class="fa fa-calendar"></i> <a href="javascript:void(0)">@item.CreatedAt.ToString("dd.MM.yyyy")</a></span></p>
+                                                    </div>
+
+                                                    <p class="post-excerpt">
+                                                        @item.ShortDescription
+                                                    </p>
+                                                    <a href="@Url.Action("Detail", "Event", new { q= item.Alias })" class="blog-readmore-btn">Xem Thêm</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="pagination-section mb-md-30 mb-sm-30">
+                    <ul class="pagination">
+                        @for (var i = 1; i <= Model.TotalPage; i++)
+                        {
+                            var clzActive = i == Model.CurrentPage ? "active" : "";
+                            var clzUrl = i == Model.CurrentPage ? "javacript:void(0)" : Url.Action("Index", "Event", new { page = i });
+                            <li class="@clzActive"><a href="@clzUrl">@i</a></li>
+                        }
+                    </ul>
+                    @*<div class="pagination-text">
+                            Showing 1 to 9 of 15 (2 Pages)
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

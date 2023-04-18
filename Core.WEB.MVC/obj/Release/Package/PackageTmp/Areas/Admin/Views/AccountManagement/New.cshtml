@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.Account.AccountDTO
+<div class="account-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Trang chủ" }, { "AccountManagement", "Quản Lý Tài Khoản" }, { "C", "Thêm mới" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "AccountManagement") }, { "mShowButton", "false" } })
+
+        @using (Html.BeginForm("New", "AccountManagement", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+        {
+            @Html.Partial("_Form", Model)
+        }
+</div>
+

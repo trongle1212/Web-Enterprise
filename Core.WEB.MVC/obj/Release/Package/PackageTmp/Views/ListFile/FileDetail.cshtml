@@ -1,0 +1,104 @@
+﻿@model Core.DTO.File.FileDTO
+@using Core.Common.Extentions
+@using Core.Common.Enum
+
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                        <li class="has-child"><a href="#">Hồ sơ</a></li>
+                        <li>Chi tiết chứng nhận</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-details-area mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-detail-content">
+                    <h2 class="product-details-title mb-15">Cá nhân/tổ chức: <strong>@Model.FullName</strong> </h2>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Tình trạng hồ sơ :</span>
+                            <span class="value">@ExtensionClass.GetEnumDescription((EnumCommon.EFileStatus)Model.Status)</span>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Thời hạn hồ sơ :</span>
+                            @if (Model.ExpiredDay.HasValue)
+                            {
+                                <span class="value">@Model.ExpiredDay.Value.ToString("dd-MM-yyyy")</span>
+                            }                            
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Đơn xin cấp phép sử dụng CDĐL có xác nhận của Hội sản xuất và kinh doanh:</span>
+                            <a href="@Model.FileNameCDDL" download>
+                                <span class="value">Tải xuống</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Bản thuyết minh hiện trạng sản xuất kinh doanh và chất lượng sản phẩm :</span>
+                            <a href="@Model.FileNameSXKDCLSP" download>
+                                <span class="value">Tải xuống</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-info-block mb-30">
+                        <div class="single-info">
+                            <span class="title">Bản photo giấy chứng nhận đăng ký kinh doanh :</span>
+                            <a href="@Model.FileNameDKKD" download>
+                                <span class="value">Tải xuống</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="product-description-review-area mb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-slider-wrapper product-description-review-container">
+                        <nav>
+                            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="description-tab" data-toggle="tab" href="#product-description" role="tab"
+                                   aria-selected="true">@General.Description</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="product-description" role="tabpanel" aria-labelledby="description-tab">
+                                @if (!string.IsNullOrEmpty(Product.Description))
+                                {
+                                    <div class="product-description">
+                                        @Html.Raw(Product.Description)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

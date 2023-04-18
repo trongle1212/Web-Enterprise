@@ -1,0 +1,7 @@
+2019-10-17 13:45:39,650- Thread:[5] - Level:INFO  - From: Core.Common.Log4Net.Logger.Info - Message: test
+2019-10-17 14:18:27,129- Thread:[5] - Level:INFO  - From: Core.Common.Log4Net.Logger.Info - Message: Core.DTO.BaseDTO
+2019-10-17 14:20:09,016- Thread:[5] - Level:INFO  - From: Core.Common.Log4Net.Logger.Info - Message: {"ID":null,"Created_By":null,"Updated_By":null,"Created_At":"0001-01-01T00:00:00","Updated_At":"0001-01-01T00:00:00","IsActive":false}
+2019-10-17 14:20:46,381- Thread:[6] - Level:INFO  - From: Core.Common.Log4Net.Logger.Info - Message: 1
+2019-10-17 14:21:31,094- Thread:[6] - Level:INFO  - From: Core.Common.Log4Net.Logger.Info - Message: "Hello"
+2019-10-17 14:25:09,616- Thread:[6] - Level:ERROR - From: Core.Common.Log4Net.Logger.Error - Message: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Core.WEB.MVC.Controllers.HomeController.Index() in D:\David\Framework_Core\VQT.Frame.Core\Core.WEB.MVC\Controllers\HomeController.cs:line 22

@@ -1,0 +1,104 @@
+﻿@model Core.DTO.File.FileDTO
+@{
+    ViewBag.Title = "Cập nhật hồ sơ";
+}
+<div class="breadcrumb-area pt-10 pb-10 border-bottom mb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li class="has-child"><a href="index.html">Trang chủ</a></li>
+                        <li>Cập nhật hồ sơ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-section pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12 mb-30">
+                @using (Html.BeginForm("Edit", "File", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "form-createfile" }))
+                {
+                    <div class="login-form">
+                        <h4 class="login-title">Cập nhập hồ sơ: <i>@Model.RegistrationNumber</i></h4>
+                        <div class="row">
+                            <div class="col-md-12 col-12 mb-20">
+                                <label>1. Đơn xin cấp phép sử dụng CDĐL có xác nhận của Hội sản xuất và kinh doanh huyện Cao Phong (02) </label>
+                                @if (!string.IsNullOrEmpty(Model.FileNameCDDL))
+                                {
+                                    @Html.HiddenFor(model => model.FileNameCDDL)
+                                }
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.HiddenFor(model => model.StartDay)
+                                @Html.HiddenFor(model => model.IsActive)
+                                @Html.HiddenFor(model => model.FileCode)
+                                @Html.TextBoxFor(model => model.FileUploadCDDL, new { @type = "file", })
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>2. Bản thuyết minh hiện trạng sản xuất kinh doanh và chất lượng sản phẩm (02)</label>
+                                @if (!string.IsNullOrEmpty(Model.FileNameSXKDCLSP))
+                                {
+                                    @Html.HiddenFor(model => model.FileNameSXKDCLSP)
+                                }
+                                @Html.TextBoxFor(model => model.FileUploadSXKDCLSP, new { @type = "file", })
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label>3. Bản photo giấy chứng nhận đăng ký kinh doanh (02) (nếu có)</label>
+                                @if (!string.IsNullOrEmpty(Model.FileNameDKKD))
+                                {
+                                    @Html.HiddenFor(model => model.FileNameDKKD)
+                                }
+                                @Html.TextBoxFor(model => model.FileUploadDKKD, new { @type = "file", })
+                            </div>
+                            <div class="col-md-8">
+                                <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
+                                    <input type="checkbox" id="ruleAccept">
+                                    <label for="ruleAccept">Đồng ý điểu khoản</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
+                                <a href="#"> </a>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="btncreatedfile" class="register-button mt-0" type="submit">Cập nhật hồ sơ</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("[id=form-createfile]").submit(function (event) {
+        var RuleAccept = $("[id=ruleAccept]").is(":checked")
+        if (RuleAccept == true) {
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "post",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.status !== undefined && data.status == 400) {
+                        ToastMessage(data.message, 'error')
+                    }
+                    else {
+                        window.location.href = "@Url.Action("Notification", "File")"
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    ToastMessage("Kích thước tập tin quá lớn", 'warning')
+                }
+            });
+        }
+        else {
+            ToastMessage("Vui lòng chọn đồng ý điều khoản", "warning")
+        }
+        event.preventDefault();
+    })
+</script>

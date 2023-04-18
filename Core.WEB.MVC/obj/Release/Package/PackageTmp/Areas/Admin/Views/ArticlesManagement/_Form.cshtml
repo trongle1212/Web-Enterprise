@@ -1,0 +1,163 @@
+﻿@{
+    Layout = null;
+}
+@using Core.Common.Extentions;
+@using Core.Common.Enum;
+@model Core.DTO.Articles.ArticlesDTO
+@{
+    string datajson = "";
+    if (Model.ListCategory.Count > 0)
+    {
+        for (int i = 0; i < Model.ListCategory.Count; i++)
+        {
+            datajson += "{";
+            datajson += "id: '" + Model.ListCategory[i].Id + "',";
+            datajson += "text: '" + Model.ListCategory[i].NameVi + "',";
+            datajson += "href: '#" + Model.ListCategory[i].NameVi + "',";
+            datajson += "state:{ checked: false, disabled: false, expanded: true, selected: " + (Model.ListCategory[i].IsSelected ? "true" : "false") + "},";
+            datajson += "tags: ['0']";
+            datajson += "}";
+            if (i < Model.ListCategory.Count - 1)
+            {
+                datajson += ",";
+            }
+        }
+    }
+}
+<script src="@Url.Content("~/LibCKEditor/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/LibCKEditor/ckfinder/ckfinder.js")"></script>
+<script src="@Url.Content("~/Content/assets/node_modules/bootstrap-treeview-master/dist/bootstrap-treeview.min.js")"></script>
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset style="width: 100%">
+                    <legend>THÔNG TIN CHUNG</legend>
+                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-8 mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="Title">Tiêu Đề</label>
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.CategoryIDs)
+                                        @Html.HiddenFor(model => model.CreatedBy)
+                                        @Html.HiddenFor(model => model.CreatedAt)
+                                        @Html.HiddenFor(model => model.ImageURL)
+                                        @Html.HiddenFor(model => model.PictureByte)
+                                        @Html.TextBoxFor(model => model.TitleVi, new { @class = "form-control", placeholder = "Nhập tiêu đề" })
+                                        @Html.ValidationMessageFor(model => model.TitleVi, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="ShortDescription">Mô Tả</label>
+                                        @Html.TextAreaFor(model => model.ShortDescriptionVi, new { @class = "form-control", placeholder = "Nhập mô tả", @rows = "6" })
+                                        @Html.ValidationMessageFor(model => model.ShortDescriptionVi, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="PictureUpload">Hình Ảnh(1110px - 715px)</label>
+                                        @if (string.IsNullOrEmpty(Model.ImageURL))
+                                        {
+                                            @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file", @data_default_file = Url.Content(Model.ImageURL) })
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="ShortDescription">Nội Dung</label>
+                                        @Html.TextAreaFor(model => model.ContentsVi, new { @class = "form-control", placeholder = "Nhập nội dung" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                        @Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck custom-control-input", @id = "active" })
+                                        <label class="custom-control-label" for="active">Trạng thái</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="menu-link-path">Thể loại bài viết</label>
+                                    <div id="treeview-searchable" class="treeview">
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.CategoryIDs, null, new { @class = "label label-danger" })
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="text-right">
+                                    <a href="@Url.Action("Index", "ArticlesManagement")" class="btn btn-outline-secondary">Huỷ</a>
+                                    <button class="btn btn-outline-primary" type="submit">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</div>
+@if (!string.IsNullOrEmpty(datajson))
+{
+    <script>
+        var strJson = [@Html.Raw(datajson)];
+    </script>
+}
+else
+{
+    <script>
+        var strJson = "";
+    </script>
+
+}
+@if (string.IsNullOrEmpty(Model.CategoryIDs))
+{
+    <script>
+        var listCategory = [];
+    </script>
+}
+else
+{
+    <script>
+        var strlist = '@Model.CategoryIDs';
+        var listCategory = [];
+        listCategory = strlist.split(',');
+    </script>
+}
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace("ContentsVi", { customConfig: "/LibCKEditor/ckeditor/config.js" });
+        $('[id*=Description]').removeClass('container')
+        var defaultData = strJson;
+        if (strJson === "" || strJson === undefined || strJson === null) {
+            defaultData = [];
+        }
+        $('#treeview-searchable').treeview({
+            data: defaultData,
+            multiSelect: true,
+            onNodeSelected: function (event, node) {
+                listCategory.push(node.id);
+                $("#CategoryIDs").val(listCategory.join());
+            },
+            onNodeUnselected: function (event, node) {
+                listCategory.pop(node.id);
+                $("#CategoryIDs").val(listCategory.join());
+            }
+        });
+        // Basic
+        $('.dropify').dropify();
+    })
+</script>

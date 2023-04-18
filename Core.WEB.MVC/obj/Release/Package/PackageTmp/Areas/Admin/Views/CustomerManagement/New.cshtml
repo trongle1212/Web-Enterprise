@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.Customer.CustomerDTO
+<div class="category-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string>
+        { { "Home", "Trang chủ" }, { "CustomerManagement", "Quản Lý Danh Sách Thành Viên" }, { "C", "Thêm mới" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "CustomerManagement") }, { "mShowButton", "false" } })
+
+        @using (Html.BeginForm("New", "CustomerManagement", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+        {
+            @Html.Partial("_Form", Model)
+        }
+</div>
+

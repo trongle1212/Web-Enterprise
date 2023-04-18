@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model Core.DTO.File.FileDTO
+@using Authentication
+@{
+    var UserInfo = UserServices.GetInfoCustomer();
+}
+@Html.Partial("_breadcrumb", new Dictionary<string, string>
+    { { "Home", "Trang chủ" }, { "FileManagement", "Quản Lý Hồ Sơ" }, { "C", "Xác Nhận Thông Tin" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("Index", "FileManagement") }, { "mShowButton", "false" } })
+
+<script src="@Url.Content("~/LibCKEditor/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/LibCKEditor/ckfinder/ckfinder.js")"></script>
+@using (Html.BeginForm("Edit", "FileManagement", FormMethod.Post, new { @id = "form-create", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Email)
+    @Html.HiddenFor(model => model.FileCode)
+    <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <fieldset style="width: 100%">
+                        <legend>THÔNG TIN CHUNG</legend>
+                        <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3">
+                                        <label>1. Đơn Xin Cấp Phép Sử Dụng CDĐL Có Xác Nhận Của Hội Sản Xuất Và Kinh Doanh Huyện Cao Phong (02)</label>
+                                        @{
+                                            if (!string.IsNullOrEmpty(Model.FileNameCDDL))
+                                            {
+                                                if (Model.ExtensionFileCDDL.Contains("png") || Model.ExtensionFileCDDL.Contains("jpg"))
+                                                {
+                                                    <img src="@Url.Content(Model.FileNameCDDL)" />
+                                                }
+                                                else
+                                                {
+                                                    if (Model.ExtensionFileCDDL.Contains("pdf"))
+                                                    {
+                                                        <a href="@Model.FileNameCDDL" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Model.FileNameCDDL" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3">
+                                        <label>2. Bản Thuyết Minh Hiện Trạng Sản Xuất Kinh Doanh Và Chất Lượng Sản Phẩm (02) *</label>
+                                        @{
+                                            if (!string.IsNullOrEmpty(Model.FileNameSXKDCLSP))
+                                            {
+                                                if (Model.ExtensionFileSXKDCLSP.Contains("png") || Model.ExtensionFileSXKDCLSP.Contains("jpg"))
+                                                {
+                                                    <img src="@Url.Content(Model.FileNameSXKDCLSP)" />
+                                                }
+                                                else
+                                                {
+                                                    if (Model.ExtensionFileSXKDCLSP.Contains("pdf"))
+                                                    {
+                                                        <a href="@Model.FileNameSXKDCLSP" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Model.FileNameSXKDCLSP" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3">
+                                        <label>3. Bản Photo Giấy Chứng Nhận Đăng Ký Kinh Doanh (02)</label>
+                                        @{
+                                            if (!string.IsNullOrEmpty(Model.FileNameDKKD))
+                                            {
+                                                if (Model.ExtensionFileDKKD.Contains("png") || Model.ExtensionFileDKKD.Contains("jpg"))
+                                                {
+                                                    <img src="@Url.Content(Model.FileNameDKKD)" />
+                                                }
+                                                else
+                                                {
+                                                    if (Model.ExtensionFileDKKD.Contains("pdf"))
+                                                    {
+                                                        <a href="@Model.FileNameDKKD" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Model.FileNameDKKD" download>
+                                                            <span class="value">Tải xuống</span>
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label>Ghi Chú:</label>
+                                    @Html.TextAreaFor(model => model.ContentCancel, new { @class = "form-control", @rows = "5", @cols = "3", @placeholder = "Lý do từ chối or thông tin hồ sơ thiếu or..." })
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="text-right">
+                        <a href="@Url.Action("Index","FileManagement")" class="btn btn-outline-secondary">Quay lại</a>
+                        <button class="btn btn-outline-danger" type="submit" name="cancel">Từ Chối</button>
+                        @if (UserInfo != null && UserInfo.Department == (int)Core.Common.Enum.EnumCommon.EDepartment.HoiSanXuatKD)
+                        {
+                            <button class="btn btn-outline-info" type="submit" name="miss_info">Thiếu Hồ Sơ</button>
+                        }
+                        <button class="btn btn-outline-primary" type="submit" name="accepts">Xác Nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    CKEDITOR.replace("ContentCancel", { customConfig: "/LibCKEditor/ckeditor/config.js" });
+</script>

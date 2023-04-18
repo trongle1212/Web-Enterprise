@@ -1,0 +1,114 @@
+﻿@using Core.WEB.MVC.Resources
+@using Core.DTO.Menu;
+@{
+    Layout = null;
+}
+@{ 
+   var UsersInfo = Authentication.UserServices.GetInfoCustomer();
+}
+<!--====================  navigation menu ====================-->
+<div class="navigation-menu-area mb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- navigation section -->
+                <div class="main-menu d-none d-lg-block">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")">@General.Home</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("Index", "About")">Giới thiệu</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("Index", "Blog")">Tin tức</a>
+                            </li>
+                            @if (UsersInfo != null && UsersInfo.IsApproved && UsersInfo.IsAdmin == false)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "File")">Tạo hồ sơ</a>
+                                </li>
+                            }
+                            <li>
+                                <a href="@Url.Action("Index", "Certification")">Chứng nhận</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "ListFile")">Hồ sơ</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("Index", "Contact")">@General.ContactUs</a>
+                            </li>
+                            <li>
+                                <div class="search-bar">
+                                    <form action="tim-kiem">
+                                        <input type="search" name="q" placeholder="Nhập từ khóa tìm kiếm ...">
+                                        <button type="submit"> <i class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="headertop-dropdown-container justify-content-center justify-content-md-end">
+                                    @if (UsersInfo == null)
+                                    {
+                                        <div class="header-top-single-dropdown">
+                                            <a href="javascript:void(0)" class="active-dropdown-trigger" id="user-options" style="color: #fff !important; ">Tài khoản <i class="ion-ios-arrow-down"></i></a>
+                                            <div class="header-top-single-dropdown__dropdown-menu-items deactive-dropdown-menu extra-small-mobile-fix">
+                                                <ul>
+                                                    <li><a href="@Url.Action("Index", "Account")">Đăng nhập</a></li>
+                                                    <li><a href="@Url.Action("Index", "Account")">Đăng ký</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="header-top-single-dropdown">
+                                            <a href="javascript:void(0)" class="active-dropdown-trigger" id="user-options" style="color: #fff !important; ">@UsersInfo.FullName <i class="ion-ios-arrow-down"></i></a>
+                                            <div class="header-top-single-dropdown__dropdown-menu-items deactive-dropdown-menu extra-small-mobile-fix">
+                                                <ul>
+                                                    <li><a href="@Url.Action("Notification","File")">Thông Báo</a></li>
+                                                    <li>
+                                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+                                                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                                                Đăng Xuất
+                                                            </a>
+                                                        }
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        if (UsersInfo.IsApproved == false && UsersInfo.IsAdmin == false)
+                                        {
+                                            <span class="separator">|</span>
+                                            <span class="text-danger">Tài Khoản Chưa Được Xác Nhận</span>
+                                        }
+                                        if (UsersInfo.IsAdmin)
+                                        {
+                                            <span class="separator">|</span>
+                                            <a href="@Url.Action("Index", "Home", new { area = "Admin" })" class="active-dropdown-trigger" id="user-options" style="color: #fff !important; ">Admin</a>
+                                        }
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- end of navigation section -->
+                <!-- Mobile Menu -->
+                <div class="mobile-menu-wrapper d-block d-lg-none pt-15">
+                    <div class="mobile-menu"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--====================  End of navigation menu  ====================-->

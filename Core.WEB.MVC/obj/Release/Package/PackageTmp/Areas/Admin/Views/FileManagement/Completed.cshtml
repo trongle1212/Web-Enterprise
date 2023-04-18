@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.File.FileDTO>
+@using Core.Common.Extentions
+@using Core.Common.Enum
+@using Authentication
+@{
+    var UserInfo = UserServices.GetInfoCustomer();
+}
+<div class="account-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string>
+       { { "Home", "Trang chủ" }, { "FileManagement", "Quản lý chứng nhận" } }, new ViewDataDictionary(ViewData) { { "mHref", Url.Action("New", "FileManagement") }, { "mShowButton", "false" } })
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                            <thead>
+                                <tr>
+                                    <th data-priority="1" style="max-width:20px !important;">No.</th>
+                                    <th data-priority="1">Tên thành viên</th>
+                                    <th data-priority="1">Mã chứng nhận</th>
+                                    <th data-priority="1">Trạng thái</th>
+                                    <th data-priority="1">Thời hạn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var No = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        No = No + 1;
+                                        <tr>
+                                            <td>@No</td>
+                                            <td>@item.FullName</td>
+                                            <td>@item.RegistrationNumber</td>
+                                            <td>
+                                                <label class="label label-info">@ExtensionClass.GetEnumDescription((EnumCommon.EFileStatus)item.Status)</label>
+                                            </td>
+                                            <td>
+                                                @if (item.ExpiredDay.HasValue)
+                                                {
+                                                    <span>@item.ExpiredDay.Value.ToString("dd.MM.yyyy")</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>

@@ -1,0 +1,110 @@
+﻿@using Core.WEB.MVC.Resources
+@model Core.DTO.Company.CompanyDTO
+@using Authentication;
+@{
+    var data = UserServices.GetListArticlesFooter();
+}
+<style>
+    .footer-blog-post-slider-wrapper .slick-slide > div:first-child {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+        border-top: none !important;
+    }
+
+    .footer-blog-post-slider-wrapper .slick-slide > div {
+        margin-top: 20px !important;
+        padding-top: 20px !important;
+        border-top: 1px solid #f0f0f0 !important;
+    }
+</style>
+<!--====================  footer area ====================-->
+<div class="footer-area">
+    <div class="container">
+        <div class="row mb-40">
+            <div class="col-lg-12">
+                <div class="footer-content-wrapper border-top pt-40">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <!--=======  single footer widget  =======-->
+
+                            <div class="single-footer-widget">
+                                @*<div class="footer-logo mb-25">
+                                    <img src="@Url.Content("~/Images/logo/Logo_92x92.png")" style="height: 62px; " class="img-fluid" alt="">
+                                </div>*@
+                                <div class="footer-text-block mb-10">
+                                    @*<h5 class="footer-text-block__title">Tên tổ chức</h5>*@
+                                    <p class="footer-text-block__content" style="font-weight:bold; font-size: 14px; text-transform:uppercase; color:#000">@Model.Name</p>
+                                </div>
+
+                                <div class="footer-text-block mb-10">
+                                    <h5 class="footer-text-block__title">@General.Email</h5>
+                                    <p class="footer-text-block__content">@Model.Email</p>
+                                </div>    
+
+                                <div class="footer-text-block mb-10">
+                                    <h5 class="footer-text-block__title">@General.Phone</h5>
+                                    <p class="footer-text-block__content">@Model.Phone</p>
+                                </div>   
+
+                                <div class="footer-text-block mb-10">
+                                    <h5 class="footer-text-block__title">Địa chỉ</h5>
+                                    <p class="footer-text-block__content">@Model.Address</p>
+                                </div>                                                                                         
+
+                                <div class="footer-social-icon-block">
+                                    <ul>
+                                        <li><a class="facebook-icon" href="@Model.LinkFacebook"><i class="ion-social-facebook"></i></a></li>
+                                        <li><a class="twitter-icon" href="@Model.LinkTwitter"><i class="ion-social-twitter"></i></a></li>
+                                        <li><a class="googleplus-icon" href="@Model.LinkLindedIn"><i class="ion-social-googleplus"></i></a></li>
+                                        <li><a class="instagram-icon" href="@Model.LinkPinterest"><i class="ion-social-pinterest-outline"></i></a></li>
+                                        <li><a class="youtube-icon" href="@Model.LinkYoutube"><i class="ion-social-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--=======  End of single footer widget  =======-->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mt-sm-30">
+                            <!--=======  single footer widget  =======-->
+                            <div class="fb-page" data-href="https://www.facebook.com/xacthucso.vn" data-tabs="timeline" data-width="" data-height="300px" data-small-header="true" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/xacthucso.vn" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/xacthucso.vn">XÁC THỰC SỐ</a></blockquote></div>
+                            <!--=======  End of single footer widget  =======-->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mt-md-30 mt-sm-30">
+                            <!--=======  single footer widget  =======-->
+
+                            <div class="single-footer-widget">
+                                <div class="footer-navigation">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35762.32881737427!2d105.31360639230056!3d20.709894889329245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134146d71a99055%3A0x90a18928277b9408!2zVFQuIENhbyBQaG9uZywgQ2FvIFBob25nLCBIw7JhIELDrG5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1605685505812!5m2!1svi!2s" frameborder="0" style="border:0; width :100% !important; height: 300px !important; " allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                </div>
+                            </div>
+
+                            <!--=======  End of single footer widget  =======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="copyright-text-area">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-left mb-sm-15">
+                            <div class="copyright-text">
+                                <p>Copyright © 2019 <a href="#"></a>. All Right Reserved.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center text-md-right">
+                            <div class="payment-logo">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====================  End of footer area  ====================-->

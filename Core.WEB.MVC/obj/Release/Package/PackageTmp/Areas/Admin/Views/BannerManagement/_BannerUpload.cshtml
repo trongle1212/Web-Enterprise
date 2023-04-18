@@ -1,0 +1,81 @@
+﻿@{
+    
+}
+@model Core.DTO.Banner.BannerDTO
+<div class="row form-horizontal form-label-left">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="first-step-group-criteria" style="padding-top:10px; ">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3" style="text-align: center; ">
+                            <input type="hidden" value="@Model.Id" name="Id" />
+                            <input type="hidden" value="@Model.ImageURL" name="ImageURL" />
+                            <label for="menu-name">Hình ảnh Size: 1110px-570px</label>
+                            @if (string.IsNullOrEmpty(Model.ImageURL))
+                            {
+                                @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file", @data_default_file = Url.Content(Model.ImageURL) })
+                            }
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label class="control-label fontLighter" for="EmbedScript">Địa chỉ URL</label>
+                            @Html.TextBoxFor(model => model.LinkBanner, new { @class = "form-control", placeholder = "Nhập Link Banner" })
+                            @Html.ValidationMessageFor(model => model.LinkBanner, null, new { @class = "label label-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.dropify').dropify();
+
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+
+        drEvent.on('dropify.beforeClear', function (event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+
+        drEvent.on('dropify.afterClear', function (event, element) {
+            alert('File deleted');
+        });
+
+        drEvent.on('dropify.errors', function (event, element) {
+            console.log('Has Errors');
+        });
+
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function (e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+        @*if ('@ViewBag.ErrorMsg' != "") {
+            alert('@ViewBag.ErrorMsg');
+        }*@
+    });
+</script>

@@ -1,0 +1,80 @@
+﻿@model Core.DTO.Customer.RegistersDTO
+<style type="text/css">
+    .field-validation-valid {
+        display: none;
+    }
+</style>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id="form-registers" }))
+{
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-12 col-12 mb-20">
+        <label>Tên Cá Nhân or Tổ Chức <sup class="text-danger">*</sup> </label>
+        @Html.TextBoxFor(model => model.FullName, new { @class = "mb-0", placeholder = "Tên Cá Nhân or Tổ Chức" })
+        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Email <sup class="text-danger">*</sup></label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "mb-0", placeholder = "Email" })
+        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Mật khẩu <sup class="text-danger">*</sup></label>
+        @Html.PasswordFor(model => model.Password, new { @class = "mb-0", placeholder = "Mật khẩu" })
+        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Xác nhận mật khẩu</label>
+        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "mb-0", placeholder = "Xác nhận mật khẩu" })
+        @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Diện tích</label>
+        @Html.TextBoxFor(model => model.Acreage, new { @class="mb-0", placeholder="Diện tích" })
+        @Html.ValidationMessageFor(model => model.Acreage, null, new { @class="alert alert-danger"})
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Địa Chỉ</label>
+        @Html.TextBoxFor(model => model.Address, new { @class = "mb-0", placeholder = "Địa chỉ" })
+        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-md-12 mb-20">
+        <label>Phone</label>
+        @Html.TextBoxFor(model => model.Phone, new { @class = "mb-0", placeholder = "Số điện thoại tổ chức or cá nhân" })
+        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "alert alert-danger" })
+    </div>
+    <div class="col-12">
+        <button id="btnregister" class="register-button mt-0" type="submit">Đăng ký</button>
+    </div>
+
+    <div class="col-12" style="margin-top:15px;">
+        @if (ViewBag.Success != null)
+        {
+            <div class="alert alert-success" role="alert">Tạo Tài Khoản Thành Công. Vui Lòng Chờ Admin Duyệt Tài Khoản.</div>
+        }
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger" role="alert">@ViewBag.Messages</div>
+        }
+
+    </div>
+</div>
+}
+
+<script>
+    $("#form-registers").submit(function (e) {
+        $.ajax({
+            url: $(this).attr('action'),
+            type: "Post",
+            data: new FormData(this),
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#content-register').html(data)
+            },
+            error: function (jqXHR, textStatus, errorThrown) {}
+        });
+        e.preventDefault();
+    });
+</script>

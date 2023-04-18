@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+@using Core.Common.Extentions;
+@using Core.Common.Enum
+@model Core.DTO.Customer.CustomerDTO
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset style="width: 100%">
+                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Tên thành viên</label>
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = "Tên thành viên", @autocomplete = "off", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "label label-danger" })
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>Địa chỉ</label>
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Nhập địa chỉ", @autocomplete = "off", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Nhập emaol", @autocomplete = "off", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label>Số điện thoại</label>
+                                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại", @autocomplete = "off", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Vai trò thành viên</label>
+                                        @Html.DropDownListFor(model => model.Role,
+                                                        new SelectList(EnumCommon.ERole.Admin.ToSelectListByDes(), "Value", "Text", Model.Role), null,
+                                                        new
+                                                        {
+                                                            @class = "form-control cc-select2-gender custom-select",
+                                                            @style = "width:100%;",
+                                                            @id = "RoleId"
+                                                        })
+                                        @Html.ValidationMessageFor(model => model.Department, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label>Phòng ban</label>
+                                        @Html.DropDownListFor(model => model.Department,
+                                                        new SelectList(EnumCommon.EDepartment.Club.ToSelectListByDes(), "Value", "Text", Model.Department), null,
+                                                        new
+                                                        {
+                                                            @class = "form-control cc-select2-gender custom-select",
+                                                            @style = "width:100%;",
+                                                            @id = "DepartmentId"
+                                                        })
+                                        @Html.ValidationMessageFor(model => model.Department, null, new { @class = "label label-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Trực thuộc</label>
+                                        @Html.DropDownListFor(model => model.DepartmentId,
+                                                        new SelectList(Model.ListDep, "Value", "Text", Model.DepartmentId), null,
+                                                        new
+                                                        {
+                                                            @class = "form-control cc-select2-gender custom-select",
+                                                            @style = "width:100%;",
+                                                            @id = "DepartmentId"
+                                                        })
+                                        @Html.ValidationMessageFor(model => model.DepartmentId, null, new { @class = "label label-danger" })
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    <a href="@Url.Action("Index","CustomerManagement")" class="btn btn-outline-secondary">Huỷ</a>
+                    <button class="btn btn-outline-primary" type="submit">Xác Nhận Tài Khoản</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

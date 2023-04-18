@@ -1,0 +1,381 @@
+﻿@model Core.DTO.Company.CompanyDTO
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+    //var _ID = Model.Id;
+}
+@*@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.Title)
+@Html.HiddenFor(model => model.SubTitle)
+@Html.HiddenFor(model => model.Address)
+@Html.HiddenFor(model => model.Created_By)
+@Html.HiddenFor(model => model.ImageFaviconURL)
+@Html.HiddenFor(model => model.PictureByte)
+@Html.HiddenFor(model => model.Phone)
+@Html.HiddenFor(model => model.LinkFacebook)
+@Html.HiddenFor(model => model.LinkLindedIn)
+@Html.HiddenFor(model => model.LinkPinterest)
+@Html.HiddenFor(model => model.LinkTwitter)
+@Html.HiddenFor(model => model.LinkWebsite)
+@Html.HiddenFor(model => model.IsActive)
+@Html.HiddenFor(model => model.Updated_By)
+@Html.HiddenFor(model => model.Created_At)
+@Html.HiddenFor(model => model.Updated_At)*@
+
+<link href="@Url.Content("~/Content/assets/node-modules/TouchSpin/jquery.bootstrap-touchspin.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Content/assets/node-modules/TouchSpin/jquery.bootstrap-touchspin.js")"></script>
+@{
+    <style>
+        fieldset.system-config {
+            border: solid 1px #DDD !important;
+            padding: 0 10px 10px 10px;
+            border-bottom: none;
+        }
+
+        legend.system-config {
+            width: auto !important;
+            border: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+    </style>
+}
+<div class="menu-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Thông tin chung" } }, new ViewDataDictionary { { "mHref", Url.Action("Index", "CompanyManagement", new { area = "Admin" }) }, { "mShowButton", "false" } })
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        @using (Html.BeginForm("Background", "CompanyManagement", FormMethod.Post, new { @id = "form-background", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data", @style = "Width: 100%" }))
+                        {
+                            <div class="col-sm-12 col-md-12 mb-3">
+                                <fieldset style="width: 100%" class="system-config">
+                                    <legend class="system-config">1. Background</legend>
+                                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                                        <div class="form-row">
+                                            <div class="col-md-3 mb-3">
+                                                <input type="hidden" value="@Model.Id" name="Id" />
+                                                <input type="hidden" value="@Model.AddressVi" name="AddressVi" />
+                                                <input type="hidden" value="@Model.AddressEn" name="AddressEn" />
+                                                <input type="hidden" value="@Model.CreatedBy" name="Created_By" />
+                                                <input type="hidden" value="@Model.PictureByte" name="PictureByte" />
+                                                <input type="hidden" value="@Model.Phone" name="Phone" />
+                                                <input type="hidden" value="@Model.Email" name="Email" />
+                                                <input type="hidden" value="@Model.ImageFaviconURL" name="ImageFaviconURL" />
+                                                <input type="hidden" value="@Model.LinkFacebook" name="LinkFacebook" />
+                                                <input type="hidden" value="@Model.LinkLindedIn" name="LinkLindedIn" />
+                                                <input type="hidden" value="@Model.LinkPinterest" name="LinkPinterest" />
+                                                <input type="hidden" value="@Model.LinkTwitter" name="LinkTwitter" />
+                                                <input type="hidden" value="@Model.LinkWebsite" name="LinkWebsite" />
+                                                <input type="hidden" value="@Model.IsActive" name="IsActive" />
+                                                <input type="hidden" value="@Model.UpdatedBy" name="Updated_By" />
+                                                <input type="hidden" value="@Model.CreatedAt" name="Created_At" />
+                                                <input type="hidden" value="@Model.UpdatedAt" name="Updated_At" />
+                                                <label for="PictureUpload">Favicon</label>
+                                                @if (string.IsNullOrEmpty(Model.ImageFaviconURL))
+                                                {
+                                                    @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(model => model.PictureUpload, new { @class = "dropify", @type = "file", @data_default_file = Url.Content(Model.ImageFaviconURL) })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <a href="@Url.Action("Index","CompanyManagement")" class="btn btn-default" type="submit">Huỷ</a>
+                                            <button class="btn btn-primary" type="submit">Lưu</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        }
+                    </div>
+
+                    @*<div class="row">
+                        @using (Html.BeginForm("Header", "CompanyManagement", FormMethod.Post, new { @id = "form-header", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data", @style = "Width: 100%" }))
+                        {
+                            <div class="col-sm-12 col-md-12 mb-3">
+                                <fieldset style="width: 100%" class="system-config">
+                                    <legend class="system-config">2. Thông tin Header</legend>
+                                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <input type="hidden" value="@Model.Id" name="Id" />
+                                                <input type="hidden" value="@Model.Address" name="Address" />
+                                                <input type="hidden" value="@Model.CreatedBy" name="Created_By" />
+                                                <input type="hidden" value="@Model.ImageFaviconURL" name="ImageFaviconURL" />
+                                                <input type="hidden" value="@Model.PictureByte" name="PictureByte" />
+                                                <input type="hidden" value="@Model.Phone" name="Phone" />
+                                                <input type="hidden" value="@Model.Email" name="Email" />
+                                                <input type="hidden" value="@Model.LinkFacebook" name="LinkFacebook" />
+                                                <input type="hidden" value="@Model.LinkLindedIn" name="LinkLindedIn" />
+                                                <input type="hidden" value="@Model.LinkPinterest" name="LinkPinterest" />
+                                                <input type="hidden" value="@Model.LinkTwitter" name="LinkTwitter" />
+                                                <input type="hidden" value="@Model.LinkWebsite" name="LinkWebsite" />
+                                                <input type="hidden" value="@Model.UpdatedBy" name="Updated_By" />
+                                                <input type="hidden" value="@Model.CreatedAt" name="Created_At" />
+                                                <input type="hidden" value="@Model.UpdatedAt" name="Updated_At" />
+                                                <label for="firstname">Tiêu đề chính</label>
+                                                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @id = "title", placeholder = "Nhập tiêu đề chính", @name = "Title" })
+                                                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "label label-danger error-title" })
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="firstname">Tiêu đề Phụ</label>
+                                                @Html.TextBoxFor(model => model.SubTitle, new { @class = "form-control", @id = "subtitle", placeholder = "Nhập tiêu đề Phụ" })
+                                                @Html.ValidationMessageFor(model => model.SubTitle, null, new { @class = "label label-danger error-subtitle" })
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <a href="@Url.Action("Index","CompanyManagement")" class="btn btn-default" type="submit">Huỷ</a>
+                                            <button class="btn btn-primary" type="submit">Lưu</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        }
+                    </div>*@
+
+                    <div class="row">
+                        @using (Html.BeginForm("Footer", "CompanyManagement", FormMethod.Post, new { @id = "form-footer", @class = "form-horizontal needs-validation", @enctype = "multipart/form-data", @style = "Width: 100%" }))
+                        {
+                            <div class="col-sm-12 col-md-12 mb-3">
+                                <fieldset style="width: 100%" class="system-config">
+                                    <legend class="system-config">3. Thông tin Chung</legend>
+                                    <div class="first-step-group-criteria" style="padding-top:10px; margin-bottom: 10px;">
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-3">
+                                                <input type="hidden" value="@Model.Id" name="Id" />
+                                                <input type="hidden" value="@Model.CreatedBy" name="Created_By" />
+                                                <input type="hidden" value="@Model.ImageFaviconURL" name="ImageFaviconURL" />
+                                                <input type="hidden" value="@Model.PictureByte" name="PictureByte" />
+                                                <input type="hidden" value="@Model.UpdatedBy" name="Updated_By" />
+                                                <input type="hidden" value="@Model.CreatedAt" name="Created_At" />
+                                                <input type="hidden" value="@Model.UpdatedAt" name="Updated_At" />
+                                                <label for="firstname">Link website</label>
+                                                @Html.TextBoxFor(model => model.LinkWebsite, new { @class = "form-control", @id = "linkwebsite", placeholder = "Nhập link website" })
+                                                @Html.ValidationMessageFor(model => model.LinkWebsite, null, new { @class = "label label-danger error-link-website" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Tên Công Ty (Việt Nam)</label>
+                                                @Html.TextBoxFor(model => model.NameVi, new { @class = "form-control", @id = "address", placeholder = "Nhập tên Công Ty VN" })
+                                                @Html.ValidationMessageFor(model => model.NameVi, null, new { @class = "label label-danger error-namevi" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Tên Công Ty (English)</label>
+                                                @Html.TextBoxFor(model => model.NameEn, new { @class = "form-control", @id = "address", placeholder = "Nhập tên Công Ty English" })
+                                                @Html.ValidationMessageFor(model => model.NameEn, null, new { @class = "label label-danger error-nameen" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Địa chỉ Công Ty (Việt Nam)</label>
+                                                @Html.TextAreaFor(model => model.AddressVi, new { @class = "form-control", @id = "address", placeholder = "Nhập địa chỉ Công Ty VN" })
+                                                @Html.ValidationMessageFor(model => model.AddressVi, null, new { @class = "label label-danger error-address" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Địa chỉ Công Ty (English)</label>
+                                                @Html.TextAreaFor(model => model.AddressEn, new { @class = "form-control", @id = "address", placeholder = "Nhập địa chỉ Công Ty English" })
+                                                @Html.ValidationMessageFor(model => model.AddressEn, null, new { @class = "label label-danger error-address" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="email">E-Mail</label>
+                                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "email", placeholder = "Nhập địa chỉ E-mail" })
+                                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger error-email" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="phone">Điện Thoại</label>
+                                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @id = "phone", placeholder = "Nhập số điện thoại" })
+                                                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger error-phone" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Link Facebook</label>
+                                                @Html.TextBoxFor(model => model.LinkFacebook, new { @class = "form-control", @id = "linkfb", placeholder = "Nhập link Facebook" })
+                                                @Html.ValidationMessageFor(model => model.LinkFacebook, null, new { @class = "label label-danger error-link-fb" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Link Twitter</label>
+                                                @Html.TextBoxFor(model => model.LinkTwitter, new { @class = "form-control", @id = "linktwi", placeholder = "Nhập link Twitter" })
+                                                @Html.ValidationMessageFor(model => model.LinkTwitter, null, new { @class = "label label-danger error-link-twi" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Link LinkedIn</label>
+                                                @Html.TextBoxFor(model => model.LinkLindedIn, new { @class = "form-control", @id = "linklin", placeholder = "Nhập link LinkedIn" })
+                                                @Html.ValidationMessageFor(model => model.LinkLindedIn, null, new { @class = "label label-danger error-link-lin" })
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Link Pinterest</label>
+                                                @Html.TextBoxFor(model => model.LinkPinterest, new { @class = "form-control", @id = "LinkPinterest", placeholder = "Nhập link Pinterest" })
+                                                @Html.ValidationMessageFor(model => model.LinkPinterest, null, new { @class = "label label-danger error-link-Pinterest" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="lastname">Link Youtube</label>
+                                                @Html.TextBoxFor(model => model.LinkYoutube, new { @class = "form-control", @id = "LinkYoutube", placeholder = "Nhập link Youtube" })
+                                                @Html.ValidationMessageFor(model => model.LinkYoutube, null, new { @class = "label label-danger error-link-Youtube" })
+                                            </div>
+                                        </div>
+
+                                        <div class="text-right">
+                                            <a href="@Url.Action("Index", "CompanyManagement")" class="btn btn-default" type="submit">Huỷ</a>
+                                            <button class="btn btn-primary" type="submit">Lưu</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // Basic
+        $('.dropify').dropify();
+
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+
+        drEvent.on('dropify.beforeClear', function (event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+
+        drEvent.on('dropify.afterClear', function (event, element) {
+            alert('File deleted');
+        });
+
+        drEvent.on('dropify.errors', function (event, element) {
+            console.log('Has Errors');
+        });
+
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function (e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    })
+
+    $('#config-table').DataTable({
+        responsive: true
+    });
+
+    $("#form-background").submit(function (e) {
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: $(this).attr('action'),
+            type: "Post",
+            data: new FormData(this),
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.ok == true) {                    
+                    ShowToastMessage("Cập nhật Favicon thành công!", 'success', 'Thành Công')
+                }
+                else {
+                    ShowToastMessage("Cập nhật Favicon không thành công!", 'error', 'Lỗi')
+                }
+            },
+            complete: function (result) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+        e.preventDefault();
+    });
+
+
+    $("#form-header").submit(function (e) {
+        $('.error-title').hide();
+        $('.error-subtitle').hide();
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: $(this).attr('action'),
+            type: "Post",
+            data: new FormData(this),
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.ok == true) {
+                    ShowToastMessage("Cập nhật thông tin header thành công!", 'success', 'Thành Công')
+                }
+                else {
+                    ShowToastMessage("Cập nhật thông tin header không thành công!", 'error', 'Lỗi')
+                }
+            },
+            complete: function (result) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+        e.preventDefault();
+    });
+
+    $("#form-footer").submit(function (e) {
+        $('.error-link-website').hide();
+        $('.error-address').hide();
+        $('.error-email').hide();
+        $('.error-phone').hide();
+        $.ajax({
+            beforeSend: function () {
+            },
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.ok == true) {
+                    ShowToastMessage("Cập nhật thông tin công ty thành công!", 'success', 'Thành Công')
+                }
+                else {
+                    ShowToastMessage("Cập nhật thông tin công ty không thành công!", 'error', 'Lỗi')
+                }
+            },
+            complete: function (result) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+        e.preventDefault();
+    });
+</script>

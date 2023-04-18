@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Quản Lý Sự Kiện";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+@model List<Core.DTO.Event.EventsDTO>
+<div class="menu-management">
+    @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Quản lý sự kiện" } }, new ViewDataDictionary { { "mHref", Url.Action("New", "EventManagement", new { area = "Admin" }) }, { "mShowButton", "true" } })
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="config-table" class="table display table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu Đề</th>
+                                    <th>Tác Giả</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="text-left" style="text-align:left">
+                                                <a href="@Url.Action("Edit","EventManagement", new { Id = item.Id })" data-toggle="tooltip" data-placement="bottom" title="@item.TitleVi">
+                                                    @item.TitleVi
+                                                </a>
+                                            </td>
+                                            <td>@item.EmployeeName</td>
+                                            <td class="text-center">
+                                                @if (item.IsActive)
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-on text-success"></i></label>
+                                                }
+                                                else
+                                                {
+                                                    <label class="btn btn-default btn-sm"><i class="fa fa-lg fa-toggle-off text-danger"></i></label>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-3 pull-right">
+                                                    <a href="@Url.Action("Edit","EventManagement", new { Id = item.Id })" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Cập nhật thông tin sự kiện">
+                                                        <i class="fas fa-fw fa-pencil-alt text-success"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)" onclick="ConfirmSwalMessage('Bạn Có Chắc Muốn Xoá','', 'Đồng Ý', 'Huỷ','@Url.Action("Destroy", "EventManagement", new { Id = item.Id })')" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Xoá thông tin sự kiện">
+                                                        <i class="fa fa-fw fa-trash text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#config-table').DataTable({
+        responsive: true
+    });
+</script>
